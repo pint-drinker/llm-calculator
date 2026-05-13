@@ -1,0 +1,14 @@
+{
+  "name": "llm-calculator",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter=\"./packages/api\" --filter=\"./apps/web\" run dev",
+    "dev:api": "pnpm --filter @llm-calc/api run dev",
+    "dev:web": "pnpm --filter @llm-calc/web run dev",
+    "mcp:stdio": "pnpm --filter @llm-calc/api run mcp:stdio",
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "typecheck": "pnpm -r run typecheck"
+  }
+}

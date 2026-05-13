@@ -1,0 +1,33 @@
+{
+  "name": "@llm-calc/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "mcp:stdio": "node dist/mcp-stdio.js",
+    "mcp:stdio:dev": "tsx src/mcp-stdio.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@llm-calc/core": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.14.0",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

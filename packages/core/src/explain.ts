@@ -1,0 +1,246 @@
+import type {
+  ExplainStep,
+  ExplainTrace,
+  GPU,
+  InferenceConfig,
+} from './types.js';
+import { bytesPerParam, kvBytesPerElement } from './quantization.js';
+import { MEMORY_CONSTANTS, computeMemory } from './memory.js';
+import { THROUGHPUT_CONSTANTS, effectiveBandwidth, effectiveTflops } from './throughput.js';
+
+const GB = MEMORY_CONSTANTS.GB;
+
+function num(n: number, digits = 6): string {
+  if (!Number.isFinite(n)) return String(n);
+  if (Math.abs(n) >= 1e9) return n.toExponential(3);
+  return Number(n.toPrecision(digits)).toString();
+}
+
+export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
+  const { model, weight_quant, kv_quant, context_length, batch_size, tensor_parallel } = config;
+  const tp = tensor_parallel;
+  const steps: ExplainStep[] = [];
+
+  const bpp = bytesPerParam(weight_quant);
+  const weights_bytes = model.params * bpp;
+  steps.push({
+    name: 'weights_bytes',
+    formula: 'params × bytes_per_param(weight_quant)',
+    inputs: { params: model.params, weight_quant, bytes_per_param: bpp },
+    substituted: `${num(model.params)} × ${bpp}`,
+    result: weights_bytes,
+    units: 'bytes',
+  });
+
+  const kvBpe = kvBytesPerElement(kv_quant);
+  let kvPerToken = 0;
+  let fullLayers = 0;
+  for (const layer of model.layers) {
+    if (layer.kind === 'full') {
+      kvPerToken += 2 * layer.n_kv_heads * layer.head_dim * kvBpe;
+      fullLayers++;
+    }
+  }
+  steps.push({
+    name: 'kv_bytes_per_token',
+    formula: 'Σ_full_layers(2 × n_kv_heads × head_dim × kv_bytes_per_element)',
+    inputs: {
+      full_layer_count: fullLayers,
+      kv_quant,
+      kv_bytes_per_element: kvBpe,
+    },
+    substituted: `Σ over ${fullLayers} full-attention layers`,
+    result: kvPerToken,
+    units: 'bytes/token',
+  });
+
+  const kv_cache_bytes = batch_size * context_length * kvPerToken;
+  steps.push({
+    name: 'kv_cache_bytes',
+    formula: 'batch × context × kv_bytes_per_token',
+    inputs: { batch_size, context_length, kv_bytes_per_token: kvPerToken },
+    substituted: `${batch_size} × ${num(context_length)} × ${num(kvPerToken)}`,
+    result: kv_cache_bytes,
+    units: 'bytes',
+  });
+
+  let linearTotal = 0;
+  let linearLayers = 0;
+  for (const layer of model.layers) {
+    if (layer.kind === 'linear') {
+      linearTotal += layer.state_size_bytes;
+      linearLayers++;
+    }
+  }
+  const linear_state_bytes = batch_size * linearTotal;
+  steps.push({
+    name: 'linear_state_bytes',
+    formula: 'batch × Σ_linear_layers(state_size_bytes)',
+    inputs: { batch_size, linear_layer_count: linearLayers },
+    substituted: `${batch_size} × ${num(linearTotal)} (context-independent)`,
+    result: linear_state_bytes,
+    units: 'bytes',
+  });
+
+  const chunk = Math.min(context_length, MEMORY_CONSTANTS.ACTIVATION_CHUNK_TOKENS);
+  const activations_bytes =
+    batch_size * chunk * model.hidden_dim * MEMORY_CONSTANTS.ACTIVATION_BYTES_PER_HIDDEN;
+  steps.push({
+    name: 'activations_bytes',
+    formula: 'batch × min(context, 4096) × hidden_dim × 8',
+    inputs: { batch_size, chunk_tokens: chunk, hidden_dim: model.hidden_dim },
+    substituted: `${batch_size} × ${chunk} × ${model.hidden_dim} × 8`,
+    result: activations_bytes,
+    units: 'bytes',
+  });
+
+  const framework_overhead_bytes = MEMORY_CONSTANTS.FRAMEWORK_OVERHEAD_GB * GB;
+  steps.push({
+    name: 'framework_overhead_bytes',
+    formula: `${MEMORY_CONSTANTS.FRAMEWORK_OVERHEAD_GB} GB constant`,
+    inputs: {},
+    substituted: `${MEMORY_CONSTANTS.FRAMEWORK_OVERHEAD_GB} × 2^30`,
+    result: framework_overhead_bytes,
+    units: 'bytes',
+  });
+
+  const shardable = weights_bytes + kv_cache_bytes + linear_state_bytes + activations_bytes;
+  const totalBytes = shardable + framework_overhead_bytes;
+  steps.push({
+    name: 'total_bytes',
+    formula: 'weights + kv + linear + activations + overhead',
+    inputs: {
+      weights_bytes,
+      kv_cache_bytes,
+      linear_state_bytes,
+      activations_bytes,
+      framework_overhead_bytes,
+    },
+    substituted: `${num(weights_bytes)} + ${num(kv_cache_bytes)} + ${num(linear_state_bytes)} + ${num(activations_bytes)} + ${num(framework_overhead_bytes)}`,
+    result: totalBytes,
+    units: 'bytes',
+  });
+
+  const perGpuBytes = shardable / tp + framework_overhead_bytes;
+  steps.push({
+    name: 'per_gpu_bytes',
+    formula: '(weights + kv + linear + activations) / TP + overhead',
+    inputs: {
+      shardable_bytes: shardable,
+      tensor_parallel: tp,
+      framework_overhead_bytes,
+    },
+    substituted: `${num(shardable)} / ${tp} + ${num(framework_overhead_bytes)}`,
+    result: perGpuBytes,
+    units: 'bytes',
+  });
+
+  steps.push({
+    name: 'per_gpu_gb',
+    formula: 'per_gpu_bytes / 2^30',
+    inputs: { per_gpu_bytes: perGpuBytes, gb: GB },
+    substituted: `${num(perGpuBytes)} / ${GB}`,
+    result: perGpuBytes / GB,
+    units: 'GB',
+  });
+
+  // throughput section
+  const bytesPerToken = weights_bytes + kv_cache_bytes / Math.max(1, context_length);
+  steps.push({
+    name: 'bytes_per_decode_token',
+    formula: 'weights_bytes + kv_cache_bytes / context',
+    inputs: { weights_bytes, kv_cache_bytes, context_length },
+    substituted: `${num(weights_bytes)} + ${num(kv_cache_bytes)} / ${num(context_length)}`,
+    result: bytesPerToken,
+    units: 'bytes/token',
+  });
+
+  const effBw = effectiveBandwidth(gpu, tp);
+  steps.push({
+    name: 'effective_bandwidth',
+    formula: 'gpu.memory_bandwidth × TP × (TP==1 ? 1 : 0.85)',
+    inputs: {
+      memory_bandwidth_gbs: gpu.memory_bandwidth_gbs,
+      tensor_parallel: tp,
+      tp_efficiency: tp === 1 ? 1 : THROUGHPUT_CONSTANTS.TP_COMM_EFFICIENCY,
+    },
+    substituted: `${gpu.memory_bandwidth_gbs} × ${tp} × ${tp === 1 ? 1 : THROUGHPUT_CONSTANTS.TP_COMM_EFFICIENCY}`,
+    result: effBw,
+    units: 'GB/s',
+  });
+
+  const memTps = (effBw * 1e9) / bytesPerToken;
+  steps.push({
+    name: 'memory_bound_tps',
+    formula: 'effective_bandwidth × 1e9 / bytes_per_decode_token',
+    inputs: { effective_bandwidth_gbs: effBw, bytes_per_decode_token: bytesPerToken },
+    substituted: `${num(effBw)} × 1e9 / ${num(bytesPerToken)}`,
+    result: memTps,
+    units: 'tokens/s',
+  });
+
+  const flopsPerToken = 2 * (model.active_params ?? model.params);
+  steps.push({
+    name: 'flops_per_token',
+    formula: '2 × (active_params ?? params)',
+    inputs: {
+      params: model.params,
+      active_params: model.active_params ?? model.params,
+    },
+    substituted: `2 × ${num(model.active_params ?? model.params)}`,
+    result: flopsPerToken,
+    units: 'FLOPs/token',
+  });
+
+  const effFlops = effectiveTflops(gpu, weight_quant, tp);
+  steps.push({
+    name: 'effective_tflops',
+    formula: 'gpu.tflops_for(weight_quant) × TP × (TP==1 ? 1 : 0.85)',
+    inputs: {
+      fp16_tflops: gpu.fp16_tflops,
+      fp8_tflops: gpu.fp8_tflops ?? 0,
+      int4_tflops: gpu.int4_tflops ?? 0,
+      tensor_parallel: tp,
+    },
+    substituted: `tflops × ${tp} × ${tp === 1 ? 1 : THROUGHPUT_CONSTANTS.TP_COMM_EFFICIENCY}`,
+    result: effFlops,
+    units: 'TFLOPs/s',
+  });
+
+  const compTps = (effFlops * 1e12) / flopsPerToken;
+  steps.push({
+    name: 'compute_bound_tps',
+    formula: 'effective_tflops × 1e12 / flops_per_token',
+    inputs: { effective_tflops: effFlops, flops_per_token: flopsPerToken },
+    substituted: `${num(effFlops)} × 1e12 / ${num(flopsPerToken)}`,
+    result: compTps,
+    units: 'tokens/s',
+  });
+
+  steps.push({
+    name: 'estimated_tps',
+    formula: 'min(memory_bound_tps, compute_bound_tps)',
+    inputs: { memory_bound_tps: memTps, compute_bound_tps: compTps },
+    substituted: `min(${num(memTps)}, ${num(compTps)})`,
+    result: Math.min(memTps, compTps),
+    units: 'tokens/s',
+  });
+
+  const ttft = (context_length * flopsPerToken) / (effFlops * 1e12);
+  steps.push({
+    name: 'ttft_seconds',
+    formula: 'context × flops_per_token / (effective_tflops × 1e12)',
+    inputs: {
+      context_length,
+      flops_per_token: flopsPerToken,
+      effective_tflops: effFlops,
+    },
+    substituted: `${num(context_length)} × ${num(flopsPerToken)} / (${num(effFlops)} × 1e12)`,
+    result: ttft,
+    units: 's',
+  });
+
+  // sanity reference to keep computeMemory imported (parity check)
+  void computeMemory;
+  return { steps };
+}

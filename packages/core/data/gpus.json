@@ -1,0 +1,89 @@
+[
+  {
+    "name": "RTX 3090",
+    "vram_gb": 25.77,
+    "memory_bandwidth_gbs": 936,
+    "fp16_tflops": 35.5
+  },
+  {
+    "name": "RTX 4090",
+    "vram_gb": 25.77,
+    "memory_bandwidth_gbs": 1008,
+    "fp16_tflops": 82.6,
+    "fp8_tflops": 660.6,
+    "int4_tflops": 660.6
+  },
+  {
+    "name": "RTX 5090",
+    "vram_gb": 34.36,
+    "memory_bandwidth_gbs": 1792,
+    "fp16_tflops": 104.8,
+    "fp8_tflops": 838.4,
+    "int4_tflops": 838.4
+  },
+  {
+    "name": "A100 40GB",
+    "vram_gb": 42.95,
+    "memory_bandwidth_gbs": 1555,
+    "fp16_tflops": 312
+  },
+  {
+    "name": "A100 80GB",
+    "vram_gb": 85.9,
+    "memory_bandwidth_gbs": 2039,
+    "fp16_tflops": 312
+  },
+  {
+    "name": "H100 80GB",
+    "vram_gb": 85.9,
+    "memory_bandwidth_gbs": 3350,
+    "fp16_tflops": 989,
+    "fp8_tflops": 1979
+  },
+  {
+    "name": "H200",
+    "vram_gb": 151.4,
+    "memory_bandwidth_gbs": 4800,
+    "fp16_tflops": 989,
+    "fp8_tflops": 1979
+  },
+  {
+    "name": "B200",
+    "vram_gb": 206.2,
+    "memory_bandwidth_gbs": 8000,
+    "fp16_tflops": 2250,
+    "fp8_tflops": 4500
+  },
+  {
+    "name": "L40S",
+    "vram_gb": 51.54,
+    "memory_bandwidth_gbs": 864,
+    "fp16_tflops": 362,
+    "fp8_tflops": 733
+  },
+  {
+    "name": "RTX 6000 Ada",
+    "vram_gb": 51.54,
+    "memory_bandwidth_gbs": 960,
+    "fp16_tflops": 91.1,
+    "fp8_tflops": 728.5
+  },
+  {
+    "name": "Apple M2 Ultra",
+    "vram_gb": 206.16,
+    "memory_bandwidth_gbs": 800,
+    "fp16_tflops": 27
+  },
+  {
+    "name": "Apple M3 Ultra",
+    "vram_gb": 274.88,
+    "memory_bandwidth_gbs": 819,
+    "fp16_tflops": 30
+  },
+  {
+    "name": "Apple M4 Ultra",
+    "vram_gb": 274.88,
+    "memory_bandwidth_gbs": 1024,
+    "fp16_tflops": 38
+  }
+]

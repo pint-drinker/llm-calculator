@@ -1,0 +1,4109 @@
+[
+  {
+    "name": "Qwen3.6-27B-Hybrid",
+    "params": 27000000000,
+    "hidden_dim": 2048,
+    "vocab_size": 152064,
+    "layers": [
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "linear",
+        "state_size_bytes": 1310720
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 256
+      }
+    ],
+    "architecture": "qwen3-next"
+  },
+  {
+    "name": "Llama-3.1-8B",
+    "params": 8030000000,
+    "hidden_dim": 4096,
+    "vocab_size": 128256,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Llama-3.1-70B",
+    "params": 70550000000,
+    "hidden_dim": 8192,
+    "vocab_size": 128256,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Llama-3.1-405B",
+    "params": 405850000000,
+    "hidden_dim": 16384,
+    "vocab_size": 128256,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Qwen2.5-7B",
+    "params": 7610000000,
+    "hidden_dim": 3584,
+    "vocab_size": 152064,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 4,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Qwen2.5-14B",
+    "params": 14770000000,
+    "hidden_dim": 5120,
+    "vocab_size": 152064,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Qwen2.5-32B",
+    "params": 32760000000,
+    "hidden_dim": 5120,
+    "vocab_size": 152064,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Qwen2.5-72B",
+    "params": 72710000000,
+    "hidden_dim": 8192,
+    "vocab_size": 152064,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Mixtral-8x7B",
+    "params": 46700000000,
+    "active_params": 12900000000,
+    "hidden_dim": 4096,
+    "vocab_size": 32000,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "mixtral"
+  },
+  {
+    "name": "Mixtral-8x22B",
+    "params": 141000000000,
+    "active_params": 39000000000,
+    "hidden_dim": 6144,
+    "vocab_size": 32768,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "mixtral"
+  },
+  {
+    "name": "DeepSeek-V3",
+    "params": 671000000000,
+    "active_params": 37000000000,
+    "hidden_dim": 7168,
+    "vocab_size": 129280,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 128,
+        "head_dim": 64
+      }
+    ],
+    "architecture": "mixtral"
+  },
+  {
+    "name": "gpt-oss-20b",
+    "params": 21000000000,
+    "active_params": 3600000000,
+    "hidden_dim": 2880,
+    "vocab_size": 201088,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      }
+    ],
+    "architecture": "mixtral"
+  },
+  {
+    "name": "gpt-oss-120b",
+    "params": 117000000000,
+    "active_params": 5100000000,
+    "hidden_dim": 2880,
+    "vocab_size": 201088,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 64
+      }
+    ],
+    "architecture": "mixtral"
+  },
+  {
+    "name": "Mistral-7B-v0.3",
+    "params": 7250000000,
+    "hidden_dim": 4096,
+    "vocab_size": 32768,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 8,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  },
+  {
+    "name": "Phi-4",
+    "params": 14700000000,
+    "hidden_dim": 5120,
+    "vocab_size": 100352,
+    "layers": [
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      },
+      {
+        "kind": "full",
+        "n_kv_heads": 10,
+        "head_dim": 128
+      }
+    ],
+    "architecture": "llama"
+  }
+]
