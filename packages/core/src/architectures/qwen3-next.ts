@@ -2,10 +2,37 @@ import type { AttentionLayer, ModelConfig } from '../types.js';
 import {
   type ArchitectureAdapter,
   type AdapterParseResult,
+  type HFConfig,
   paramsFromMetadata,
 } from './types.js';
 
-const SUPPORTED = ['Qwen3NextForCausalLM', 'Qwen3-NextForCausalLM'];
+const SUPPORTED_ARCHITECTURES = [
+  'Qwen3NextForCausalLM',
+  'Qwen3-NextForCausalLM',
+  'Qwen3_5ForCausalLM',
+  'Qwen3_5ForConditionalGeneration',
+  'Qwen3_6ForCausalLM',
+  'Qwen3_6ForConditionalGeneration',
+];
+
+const SUPPORTED_MODEL_TYPE_PREFIXES = ['qwen3_next', 'qwen3_5', 'qwen3_6'];
+
+function flattenTextConfig(config: HFConfig): HFConfig {
+  // Multimodal Qwen3.5/3.6 nest text-decoder fields under `text_config`.
+  // Top-level fields take precedence so we don't clobber e.g. architectures.
+  const text = (config as Record<string, unknown>).text_config;
+  if (text && typeof text === 'object') {
+    return { ...(text as HFConfig), ...config };
+  }
+  return config;
+}
+
+function modelTypeMatches(mt: unknown): boolean {
+  return (
+    typeof mt === 'string' &&
+    SUPPORTED_MODEL_TYPE_PREFIXES.some((p) => mt.startsWith(p))
+  );
+}
 
 function deltaNetStateBytes(config: {
   linear_num_value_heads?: number;
@@ -27,18 +54,31 @@ function deltaNetStateBytes(config: {
   return hidden * hidden * 0.3125 * 2;
 }
 
+function architectureLabel(modelType: unknown): string {
+  if (typeof modelType === 'string') {
+    if (modelType.startsWith('qwen3_5')) return 'qwen3.5';
+    if (modelType.startsWith('qwen3_6')) return 'qwen3.6';
+  }
+  return 'qwen3-next';
+}
+
 export const qwen3NextAdapter: ArchitectureAdapter = {
   name: 'qwen3-next',
   matches(config) {
     const arches = config.architectures ?? [];
-    if (arches.some((a) => SUPPORTED.includes(a))) return true;
-    if (typeof config.model_type === 'string' && config.model_type.startsWith('qwen3_next')) {
-      return true;
+    if (arches.some((a) => SUPPORTED_ARCHITECTURES.includes(a))) return true;
+    if (modelTypeMatches(config.model_type)) return true;
+    const text = (config as Record<string, unknown>).text_config as HFConfig | undefined;
+    if (text) {
+      const nestedArches = text.architectures ?? [];
+      if (nestedArches.some((a) => SUPPORTED_ARCHITECTURES.includes(a))) return true;
+      if (modelTypeMatches(text.model_type)) return true;
     }
     return false;
   },
-  parse(modelId, config, metadata): AdapterParseResult {
+  parse(modelId, rawConfig, metadata): AdapterParseResult {
     const warnings: string[] = [];
+    const config = flattenTextConfig(rawConfig);
     const hidden = config.hidden_size ?? 0;
     const layers_n = config.num_hidden_layers ?? 0;
     const heads = config.num_attention_heads ?? Math.max(1, hidden / 128);
@@ -87,7 +127,7 @@ export const qwen3NextAdapter: ArchitectureAdapter = {
         hidden_dim: hidden,
         vocab_size: vocab,
         layers,
-        architecture: 'qwen3-next',
+        architecture: architectureLabel(config.model_type),
       },
       warnings,
     };

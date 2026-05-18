@@ -10,37 +10,60 @@ export function ResultsHeader({ result }: Props) {
   const gpu = useStore((s) => s.gpu);
   const highlighted = useStore((s) => s.highlightedValue);
   const setHighlight = useStore((s) => s.setHighlighted);
-  const fits = result.fits;
+  const { fits, fits_usable, usable_vram_gb } = result;
   const headroomGb = gpu.vram_gb - result.memory.per_gpu_gb;
+  const usableHeadroomGb = usable_vram_gb - result.memory.per_gpu_gb;
+  const usableFraction = gpu.usable_memory_fraction ?? 1.0;
+
+  const status: 'fits' | 'tight' | 'overflow' = !fits
+    ? 'overflow'
+    : !fits_usable
+      ? 'tight'
+      : 'fits';
+  const statusLabel = {
+    fits: '✓ Fits',
+    tight: '⚠ Tight',
+    overflow: '✕ Overflow',
+  }[status];
+  const statusColor = {
+    fits: 'text-accent-400',
+    tight: 'text-yellow-400',
+    overflow: 'text-danger-400',
+  }[status];
 
   return (
     <section className="panel">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
         <div className="lg:w-64">
           <div className="label">Fit on {gpu.name}</div>
-          <div
-            className={
-              'mt-1 flex items-baseline gap-2 ' +
-              (fits ? 'text-accent-400' : 'text-danger-400')
-            }
-          >
-            <span className="text-3xl font-semibold">{fits ? '✓ Fits' : '✕ Overflow'}</span>
+          <div className={'mt-1 flex items-baseline gap-2 ' + statusColor}>
+            <span className="text-3xl font-semibold">{statusLabel}</span>
           </div>
           <div className="mt-1 text-xs text-ink-400">
-            {fits
-              ? `${fmtGB(headroomGb)} headroom`
-              : `${fmtGB(-headroomGb)} over capacity`}
+            {status === 'fits' && `${fmtGB(usableHeadroomGb)} usable headroom`}
+            {status === 'tight' &&
+              `${fmtGB(-usableHeadroomGb)} over usable, ${fmtGB(headroomGb)} of physical left`}
+            {status === 'overflow' && `${fmtGB(-headroomGb)} over physical capacity`}
           </div>
           <div className="mt-2 text-xs text-ink-400">
             Utilization{' '}
             <span className="font-mono text-ink-100">
               {result.utilization_pct.toFixed(1)}%
             </span>
+            <span className="ml-2 text-ink-500">
+              of {fmtGB(gpu.vram_gb)} ({(usableFraction * 100).toFixed(0)}% usable)
+            </span>
           </div>
         </div>
 
         <div className="flex-1">
-          <MemoryBar result={result} vram_gb={gpu.vram_gb} highlight={highlighted} setHighlight={setHighlight} />
+          <MemoryBar
+            result={result}
+            vram_gb={gpu.vram_gb}
+            usable_vram_gb={usable_vram_gb}
+            highlight={highlighted}
+            setHighlight={setHighlight}
+          />
         </div>
 
         <div className="lg:w-56">
@@ -82,15 +105,18 @@ export function ResultsHeader({ result }: Props) {
 interface BarProps {
   result: CalculationResult;
   vram_gb: number;
+  usable_vram_gb: number;
   highlight: string | null;
   setHighlight: (k: string | null) => void;
 }
 
-function MemoryBar({ result, vram_gb, highlight, setHighlight }: BarProps) {
+function MemoryBar({ result, vram_gb, usable_vram_gb, highlight, setHighlight }: BarProps) {
   const m = result.memory;
   const total = m.per_gpu_gb;
   const max = Math.max(total, vram_gb) * 1.05;
   const overflow = total > vram_gb;
+  const overUsable = total > usable_vram_gb && !overflow;
+  const showUsableLine = usable_vram_gb < vram_gb;
   const segments: { label: string; value: number; color: string; key: string }[] = [
     { label: 'Weights', value: m.weights_gb, color: 'bg-accent-500', key: 'weights' },
     { label: 'KV cache', value: m.kv_cache_gb, color: 'bg-sky-500', key: 'kv' },
@@ -129,13 +155,23 @@ function MemoryBar({ result, vram_gb, highlight, setHighlight }: BarProps) {
             />
           ))}
         </div>
+        {showUsableLine && (
+          <div
+            className="absolute inset-y-0 border-l border-dashed border-yellow-500/70"
+            style={{ left: `${(usable_vram_gb / max) * 100}%` }}
+            title={`Usable cap: ${fmtGB(usable_vram_gb)}`}
+          />
+        )}
         <div
           className="absolute inset-y-0 border-l-2 border-dashed border-ink-400"
           style={{ left: `${(vram_gb / max) * 100}%` }}
-          title={`Capacity: ${fmtGB(vram_gb)}`}
+          title={`Physical capacity: ${fmtGB(vram_gb)}`}
         />
         {overflow && (
           <div className="pointer-events-none absolute inset-0 ring-2 ring-danger-500/60" />
+        )}
+        {overUsable && (
+          <div className="pointer-events-none absolute inset-0 ring-2 ring-yellow-500/50" />
         )}
       </div>
       <div className="mt-2 flex flex-wrap gap-3 text-xs text-ink-300">

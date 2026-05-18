@@ -3,7 +3,8 @@
     "name": "RTX 3090",
     "vram_gb": 25.77,
     "memory_bandwidth_gbs": 936,
-    "fp16_tflops": 35.5
+    "fp16_tflops": 35.5,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "RTX 4090",
@@ -11,7 +12,8 @@
     "memory_bandwidth_gbs": 1008,
     "fp16_tflops": 82.6,
     "fp8_tflops": 660.6,
-    "int4_tflops": 660.6
+    "int4_tflops": 660.6,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "RTX 5090",
@@ -19,71 +21,152 @@
     "memory_bandwidth_gbs": 1792,
     "fp16_tflops": 104.8,
     "fp8_tflops": 838.4,
-    "int4_tflops": 838.4
+    "int4_tflops": 838.4,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "A100 40GB",
     "vram_gb": 42.95,
     "memory_bandwidth_gbs": 1555,
-    "fp16_tflops": 312
+    "fp16_tflops": 312,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "A100 80GB",
     "vram_gb": 85.9,
     "memory_bandwidth_gbs": 2039,
-    "fp16_tflops": 312
+    "fp16_tflops": 312,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "H100 80GB",
     "vram_gb": 85.9,
     "memory_bandwidth_gbs": 3350,
     "fp16_tflops": 989,
-    "fp8_tflops": 1979
+    "fp8_tflops": 1979,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "H200",
     "vram_gb": 151.4,
     "memory_bandwidth_gbs": 4800,
     "fp16_tflops": 989,
-    "fp8_tflops": 1979
+    "fp8_tflops": 1979,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "B200",
     "vram_gb": 206.2,
     "memory_bandwidth_gbs": 8000,
     "fp16_tflops": 2250,
-    "fp8_tflops": 4500
+    "fp8_tflops": 4500,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "L40S",
     "vram_gb": 51.54,
     "memory_bandwidth_gbs": 864,
     "fp16_tflops": 362,
-    "fp8_tflops": 733
+    "fp8_tflops": 733,
+    "usable_memory_fraction": 0.85
   },
   {
     "name": "RTX 6000 Ada",
     "vram_gb": 51.54,
     "memory_bandwidth_gbs": 960,
     "fp16_tflops": 91.1,
-    "fp8_tflops": 728.5
+    "fp8_tflops": 728.5,
+    "usable_memory_fraction": 0.85
+  },
+  {
+    "name": "Apple A16 Bionic (iPhone 15)",
+    "vram_gb": 6.44,
+    "memory_bandwidth_gbs": 51.2,
+    "fp16_tflops": 2.0,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple A17 Pro (iPhone 15 Pro)",
+    "vram_gb": 8.59,
+    "memory_bandwidth_gbs": 51.2,
+    "fp16_tflops": 2.15,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple A18 (iPhone 16)",
+    "vram_gb": 8.59,
+    "memory_bandwidth_gbs": 60,
+    "fp16_tflops": 2.5,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple A18 Pro (iPhone 16 Pro)",
+    "vram_gb": 8.59,
+    "memory_bandwidth_gbs": 60,
+    "fp16_tflops": 2.9,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M2 Pro",
+    "vram_gb": 34.36,
+    "memory_bandwidth_gbs": 200,
+    "fp16_tflops": 6.8,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M2 Max",
+    "vram_gb": 103.08,
+    "memory_bandwidth_gbs": 400,
+    "fp16_tflops": 13.6,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple M2 Ultra",
     "vram_gb": 206.16,
     "memory_bandwidth_gbs": 800,
-    "fp16_tflops": 27
+    "fp16_tflops": 27,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M3 Pro",
+    "vram_gb": 38.65,
+    "memory_bandwidth_gbs": 150,
+    "fp16_tflops": 6.8,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M3 Max",
+    "vram_gb": 137.44,
+    "memory_bandwidth_gbs": 400,
+    "fp16_tflops": 15,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple M3 Ultra",
     "vram_gb": 274.88,
     "memory_bandwidth_gbs": 819,
-    "fp16_tflops": 30
+    "fp16_tflops": 30,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M4 Pro",
+    "vram_gb": 51.54,
+    "memory_bandwidth_gbs": 273,
+    "fp16_tflops": 9.5,
+    "usable_memory_fraction": 0.5
+  },
+  {
+    "name": "Apple M4 Max",
+    "vram_gb": 137.44,
+    "memory_bandwidth_gbs": 546,
+    "fp16_tflops": 19,
+    "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple M4 Ultra",
     "vram_gb": 274.88,
     "memory_bandwidth_gbs": 1024,
-    "fp16_tflops": 38
+    "fp16_tflops": 38,
+    "usable_memory_fraction": 0.5
   }
 ]

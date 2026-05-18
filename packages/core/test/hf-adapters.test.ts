@@ -75,6 +75,43 @@ describe('qwen3-next adapter', () => {
     expect(model.layers.filter((l) => l.kind === 'full')).toHaveLength(2);
     expect(model.layers.filter((l) => l.kind === 'linear')).toHaveLength(6);
   });
+
+  it('parses multimodal Qwen3.5 with nested text_config', () => {
+    const layer_types = Array.from({ length: 24 }, (_, i) =>
+      i % 4 === 3 ? 'full_attention' : 'linear_attention',
+    );
+    const { model, adapter, warnings } = dispatchArchitecture(
+      'Qwen/Qwen3.5-2B',
+      {
+        architectures: ['Qwen3_5ForConditionalGeneration'],
+        model_type: 'qwen3_5',
+        text_config: {
+          model_type: 'qwen3_5_text',
+          hidden_size: 2048,
+          num_hidden_layers: 24,
+          num_attention_heads: 8,
+          num_key_value_heads: 2,
+          head_dim: 256,
+          vocab_size: 248320,
+          layer_types,
+          linear_num_value_heads: 16,
+          linear_value_head_dim: 128,
+          linear_num_key_heads: 16,
+          linear_key_head_dim: 128,
+        },
+      } as never,
+      { modelId: 'Qwen/Qwen3.5-2B', safetensors: { total: 2_274_069_824 } },
+    );
+    expect(adapter).toBe('qwen3-next');
+    expect(model.architecture).toBe('qwen3.5');
+    expect(model.params).toBe(2_274_069_824);
+    expect(model.hidden_dim).toBe(2048);
+    expect(model.vocab_size).toBe(248320);
+    expect(model.layers).toHaveLength(24);
+    expect(model.layers.filter((l) => l.kind === 'full')).toHaveLength(6);
+    expect(model.layers.filter((l) => l.kind === 'linear')).toHaveLength(18);
+    expect(warnings).toHaveLength(0);
+  });
 });
 
 describe('jamba adapter', () => {

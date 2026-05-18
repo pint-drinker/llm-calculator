@@ -45,6 +45,7 @@ export interface GPU {
   fp16_tflops: number;
   fp8_tflops?: number;
   int4_tflops?: number;
+  usable_memory_fraction?: number;
 }
 
 export interface MemoryBreakdown {
@@ -69,6 +70,8 @@ export interface CalculationResult {
   memory: MemoryBreakdown;
   throughput: ThroughputEstimate;
   fits: boolean;
+  fits_usable: boolean;
+  usable_vram_gb: number;
   utilization_pct: number;
   warnings: string[];
 }
