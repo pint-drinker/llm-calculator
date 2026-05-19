@@ -6,7 +6,6 @@ import { Sidebar } from './components/Sidebar.js';
 import { ControlPanel } from './components/ControlPanel.js';
 import { ResultsHeader } from './components/ResultsHeader.js';
 import { MemoryVsContext } from './components/MemoryVsContext.js';
-import { ThroughputVsContext } from './components/ThroughputVsContext.js';
 import { CrossoverChart } from './components/CrossoverChart.js';
 import { MathExplainer } from './components/MathExplainer.js';
 
@@ -25,7 +24,6 @@ export function App() {
       context_length: state.context_length,
       batch_size: state.batch_size,
       tensor_parallel: state.tensor_parallel,
-      customModels: state.customModels,
     });
   }, [state]);
 
@@ -63,9 +61,8 @@ export function App() {
         </header>
         <ControlPanel />
         <ResultsHeader result={result} />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <MemoryVsContext config={config} gpu={state.gpu} />
-          <ThroughputVsContext config={config} gpu={state.gpu} />
           <CrossoverChart config={config} gpu={state.gpu} />
         </div>
         <MathExplainer config={config} gpu={state.gpu} />

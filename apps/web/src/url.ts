@@ -16,7 +16,6 @@ export interface UrlState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
-  customModels: ModelConfig[];
 }
 
 interface Encoded {
@@ -27,12 +26,9 @@ interface Encoded {
   c?: number;
   b?: number;
   tp?: TensorParallel;
-  cm?: ModelConfig[];
-  fm?: ModelConfig;
 }
 
 export function encodeState(state: UrlState): string {
-  const inCatalog = builtInModels.find((m) => m.name === state.model.name);
   const e: Encoded = {
     m: state.model.name,
     g: state.gpu.name,
@@ -41,8 +37,6 @@ export function encodeState(state: UrlState): string {
     c: state.context_length,
     b: state.batch_size,
     tp: state.tensor_parallel,
-    cm: state.customModels.length ? state.customModels : undefined,
-    fm: inCatalog ? undefined : state.model,
   };
   return LZString.compressToEncodedURIComponent(JSON.stringify(e));
 }
@@ -55,12 +49,7 @@ export function decodeStateFromUrl(): UrlState | null {
     const raw = LZString.decompressFromEncodedURIComponent(qs);
     if (!raw) return null;
     const e = JSON.parse(raw) as Encoded;
-    const cm = e.cm ?? [];
-    const model =
-      cm.find((m) => m.name === e.m) ??
-      builtInModels.find((m) => m.name === e.m) ??
-      e.fm ??
-      builtInModels[0];
+    const model = builtInModels.find((m) => m.name === e.m) ?? builtInModels[0];
     const gpu = builtInGpus.find((g) => g.name === e.g) ?? builtInGpus[0];
     return {
       model,
@@ -70,7 +59,6 @@ export function decodeStateFromUrl(): UrlState | null {
       context_length: e.c ?? 8192,
       batch_size: e.b ?? 1,
       tensor_parallel: e.tp ?? 1,
-      customModels: cm,
     };
   } catch {
     return null;

@@ -18,7 +18,8 @@ export interface AppState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
-  customModels: ModelConfig[];
+  ttft_threshold_s: number;
+  throughput_threshold_tps: number;
   highlightedValue: string | null;
   setModel: (m: ModelConfig) => void;
   setGpu: (g: GPU) => void;
@@ -27,7 +28,8 @@ export interface AppState {
   setContext: (n: number) => void;
   setBatch: (n: number) => void;
   setTp: (n: TensorParallel) => void;
-  addCustomModel: (m: ModelConfig) => void;
+  setTtftThreshold: (n: number) => void;
+  setThroughputThreshold: (n: number) => void;
   setHighlighted: (k: string | null) => void;
 }
 
@@ -45,7 +47,8 @@ export const useStore = create<AppState>((set) => ({
   context_length: initial?.context_length ?? 262144,
   batch_size: initial?.batch_size ?? 1,
   tensor_parallel: initial?.tensor_parallel ?? 1,
-  customModels: initial?.customModels ?? [],
+  ttft_threshold_s: 5,
+  throughput_threshold_tps: 15,
   highlightedValue: null,
   setModel: (m) => set({ model: m }),
   setGpu: (g) => set({ gpu: g }),
@@ -54,11 +57,8 @@ export const useStore = create<AppState>((set) => ({
   setContext: (n) => set({ context_length: n }),
   setBatch: (n) => set({ batch_size: n }),
   setTp: (n) => set({ tensor_parallel: n }),
-  addCustomModel: (m) =>
-    set((s) => {
-      const filtered = s.customModels.filter((c) => c.name !== m.name);
-      return { customModels: [...filtered, m], model: m };
-    }),
+  setTtftThreshold: (n) => set({ ttft_threshold_s: n }),
+  setThroughputThreshold: (n) => set({ throughput_threshold_tps: n }),
   setHighlighted: (k) => set({ highlightedValue: k }),
 }));
 

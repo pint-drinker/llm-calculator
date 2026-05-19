@@ -1,16 +1,19 @@
-import { useState } from 'react';
 import { builtInGpus, builtInModels } from '@llm-calc/core';
 import type { GPU, ModelConfig } from '@llm-calc/core';
 import { useStore } from '../store.js';
-import { HFImportDialog } from './HFImportDialog.js';
-import { CustomModelDrawer } from './CustomModelDrawer.js';
 import { Presets } from './Presets.js';
 
 export function Sidebar() {
-  const { model, gpu, customModels, setModel, setGpu, addCustomModel } = useStore();
-  const [hfOpen, setHfOpen] = useState(false);
-  const [customOpen, setCustomOpen] = useState(false);
-  const allModels: ModelConfig[] = [...customModels, ...builtInModels];
+  const {
+    model,
+    gpu,
+    ttft_threshold_s,
+    throughput_threshold_tps,
+    setModel,
+    setGpu,
+    setTtftThreshold,
+    setThroughputThreshold,
+  } = useStore();
 
   return (
     <aside className="panel flex flex-col gap-4 overflow-auto">
@@ -20,35 +23,16 @@ export function Sidebar() {
           className="w-full rounded border border-ink-700 bg-ink-800 px-2 py-1.5 text-sm"
           value={model.name}
           onChange={(e) => {
-            const m = allModels.find((x) => x.name === e.target.value);
+            const m = builtInModels.find((x) => x.name === e.target.value);
             if (m) setModel(m);
           }}
         >
-          {customModels.length > 0 && (
-            <optgroup label="Custom / Imported">
-              {customModels.map((m) => (
-                <option key={m.name} value={m.name}>
-                  {m.name}
-                </option>
-              ))}
-            </optgroup>
-          )}
-          <optgroup label="Catalog">
-            {builtInModels.map((m) => (
-              <option key={m.name} value={m.name}>
-                {m.name}
-              </option>
-            ))}
-          </optgroup>
+          {builtInModels.map((m) => (
+            <option key={m.name} value={m.name}>
+              {m.name}
+            </option>
+          ))}
         </select>
-        <div className="mt-2 flex gap-2">
-          <button className="btn flex-1" onClick={() => setHfOpen(true)}>
-            + Import from HuggingFace
-          </button>
-          <button className="btn flex-1" onClick={() => setCustomOpen(true)}>
-            + Custom
-          </button>
-        </div>
         <ModelSummary model={model} />
       </section>
 
@@ -72,28 +56,40 @@ export function Sidebar() {
       </section>
 
       <section>
+        <h2 className="label mb-1">Experience thresholds</h2>
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <label className="text-[10px] text-ink-400">Max TTFT (s)</label>
+            <input
+              type="number"
+              min={0.1}
+              step={0.5}
+              value={ttft_threshold_s}
+              onChange={(e) => setTtftThreshold(Math.max(0.1, Number(e.target.value) || 5))}
+              className="w-full rounded border border-ink-700 bg-ink-800 px-2 py-1 text-sm"
+            />
+          </div>
+          <div>
+            <label className="text-[10px] text-ink-400">Min tok/s</label>
+            <input
+              type="number"
+              min={1}
+              step={1}
+              value={throughput_threshold_tps}
+              onChange={(e) => setThroughputThreshold(Math.max(1, Number(e.target.value) || 15))}
+              className="w-full rounded border border-ink-700 bg-ink-800 px-2 py-1 text-sm"
+            />
+          </div>
+        </div>
+        <p className="mt-1.5 text-[10px] text-ink-500">
+          Values outside these thresholds are flagged in results.
+        </p>
+      </section>
+
+      <section>
         <h2 className="label mb-1">Presets</h2>
         <Presets />
       </section>
-
-      {hfOpen && (
-        <HFImportDialog
-          onClose={() => setHfOpen(false)}
-          onImported={(m) => {
-            addCustomModel(m);
-            setHfOpen(false);
-          }}
-        />
-      )}
-      {customOpen && (
-        <CustomModelDrawer
-          onClose={() => setCustomOpen(false)}
-          onSave={(m) => {
-            addCustomModel(m);
-            setCustomOpen(false);
-          }}
-        />
-      )}
     </aside>
   );
 }

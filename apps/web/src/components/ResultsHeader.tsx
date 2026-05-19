@@ -10,6 +10,8 @@ export function ResultsHeader({ result }: Props) {
   const gpu = useStore((s) => s.gpu);
   const highlighted = useStore((s) => s.highlightedValue);
   const setHighlight = useStore((s) => s.setHighlighted);
+  const ttftThreshold = useStore((s) => s.ttft_threshold_s);
+  const tpsThreshold = useStore((s) => s.throughput_threshold_tps);
   const { fits, fits_usable, usable_vram_gb } = result;
   const headroomGb = gpu.vram_gb - result.memory.per_gpu_gb;
   const usableHeadroomGb = usable_vram_gb - result.memory.per_gpu_gb;
@@ -31,10 +33,15 @@ export function ResultsHeader({ result }: Props) {
     overflow: 'text-danger-400',
   }[status];
 
+  const ttft = result.throughput.ttft_seconds;
+  const tps = result.throughput.estimated_tps;
+  const ttftExceeds = Number.isFinite(ttft) && ttft > ttftThreshold;
+  const tpsBelow = Number.isFinite(tps) && tps > 0 && tps < tpsThreshold;
+
   return (
     <section className="panel">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
-        <div className="lg:w-64">
+        <div className="lg:w-56">
           <div className="label">Fit on {gpu.name}</div>
           <div className={'mt-1 flex items-baseline gap-2 ' + statusColor}>
             <span className="text-3xl font-semibold">{statusLabel}</span>
@@ -66,10 +73,10 @@ export function ResultsHeader({ result }: Props) {
           />
         </div>
 
-        <div className="lg:w-56">
+        <div className="lg:w-48">
           <div className="label">Throughput (decode)</div>
-          <div className="mt-1 text-3xl font-semibold">
-            {fmtTok(result.throughput.estimated_tps)}
+          <div className={'mt-1 text-3xl font-semibold ' + (tpsBelow ? 'text-danger-400' : '')}>
+            {fmtTok(tps)}
           </div>
           <div className="mt-1 flex items-center gap-2 text-xs">
             <span
@@ -83,12 +90,28 @@ export function ResultsHeader({ result }: Props) {
               {result.throughput.bottleneck}-bound
             </span>
           </div>
-          <div className="mt-2 text-xs text-ink-400">
-            TTFT{' '}
-            <span className="font-mono text-ink-100">
-              {fmtSeconds(result.throughput.ttft_seconds)}
-            </span>
+          {tpsBelow && (
+            <div className="mt-2 flex items-center gap-1 text-xs text-danger-400">
+              <span>⚠</span>
+              <span>Below {tpsThreshold} tok/s threshold</span>
+            </div>
+          )}
+        </div>
+
+        <div className="lg:w-48">
+          <div className="label">Time to first token</div>
+          <div className={'mt-1 text-3xl font-semibold ' + (ttftExceeds ? 'text-danger-400' : '')}>
+            {fmtSeconds(ttft)}
           </div>
+          <div className="mt-1 text-xs text-ink-400">
+            Prefill latency for full context
+          </div>
+          {ttftExceeds && (
+            <div className="mt-2 flex items-center gap-1 text-xs text-danger-400">
+              <span>⚠</span>
+              <span>Exceeds {ttftThreshold}s threshold</span>
+            </div>
+          )}
         </div>
       </div>
       {result.warnings.length > 0 && (
