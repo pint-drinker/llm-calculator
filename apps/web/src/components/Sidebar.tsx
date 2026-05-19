@@ -145,6 +145,12 @@ function GpuSummary({ gpu }: { gpu: GPU }) {
           <dd className="font-mono">{gpu.fp8_tflops.toFixed(0)} TF</dd>
         </>
       )}
+      {gpu.unified_memory && (
+        <>
+          <dt>Memory</dt>
+          <dd className="font-mono text-accent-400">Unified</dd>
+        </>
+      )}
     </dl>
   );
 }

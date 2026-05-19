@@ -46,6 +46,7 @@ export interface GPU {
   fp8_tflops?: number;
   int4_tflops?: number;
   usable_memory_fraction?: number;
+  unified_memory?: boolean;
 }
 
 export interface MemoryBreakdown {

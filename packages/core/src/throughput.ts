@@ -6,6 +6,7 @@ import type {
   WeightQuant,
 } from './types.js';
 import type { MemoryComputation } from './memory.js';
+import { bytesPerParam } from './quantization.js';
 
 const TP_COMM_EFFICIENCY = 0.85;
 
@@ -65,8 +66,9 @@ export function computePrefillTime(
   const totalContext = promptTokens + cachedTokens;
   const attnFlops = attentionFlops(model.layers, promptTokens, totalContext);
 
+  const activeWeightsBytes = (model.active_params ?? model.params) * bytesPerParam(weight_quant);
   const computeTime = (linearFlops + attnFlops) / (effFlops * 1e12);
-  const memoryTime = memory.raw.weights_bytes / (effBw * 1e9);
+  const memoryTime = activeWeightsBytes / (effBw * 1e9);
 
   return Math.max(computeTime, memoryTime);
 }
@@ -79,8 +81,9 @@ export function computeThroughput(
   const { model, weight_quant, context_length, tensor_parallel } = config;
   const tp = tensor_parallel;
 
+  const activeWeightsBytes = (model.active_params ?? model.params) * bytesPerParam(weight_quant);
   const bytesPerToken =
-    memory.raw.weights_bytes +
+    activeWeightsBytes +
     memory.raw.kv_cache_bytes / Math.max(1, context_length);
   const effBw = effectiveBandwidth(gpu, tp);
   const memory_bound_tps = (effBw * 1e9) / bytesPerToken;

@@ -145,12 +145,14 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
   });
 
   // throughput section
-  const bytesPerToken = weights_bytes + kv_cache_bytes / Math.max(1, context_length);
+  const activeParams = model.active_params ?? model.params;
+  const activeWeightsBytes = activeParams * bpp;
+  const bytesPerToken = activeWeightsBytes + kv_cache_bytes / Math.max(1, context_length);
   steps.push({
     name: 'bytes_per_decode_token',
-    formula: 'weights_bytes + kv_cache_bytes / context',
-    inputs: { weights_bytes, kv_cache_bytes, context_length },
-    substituted: `${num(weights_bytes)} + ${num(kv_cache_bytes)} / ${num(context_length)}`,
+    formula: 'active_weights_bytes + kv_cache_bytes / context',
+    inputs: { active_params: activeParams, bytes_per_param: bpp, active_weights_bytes: activeWeightsBytes, kv_cache_bytes, context_length },
+    substituted: `${num(activeWeightsBytes)} + ${num(kv_cache_bytes)} / ${num(context_length)}`,
     result: bytesPerToken,
     units: 'bytes/token',
   });
@@ -261,12 +263,12 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 's',
   });
 
-  const prefillMemoryS = weights_bytes / (effBw * 1e9);
+  const prefillMemoryS = activeWeightsBytes / (effBw * 1e9);
   steps.push({
     name: 'prefill_memory_floor',
-    formula: 'weights_bytes / (effective_bandwidth × 1e9)',
-    inputs: { weights_bytes, effective_bandwidth_gbs: effBw },
-    substituted: `${num(weights_bytes)} / (${num(effBw)} × 1e9)`,
+    formula: 'active_weights_bytes / (effective_bandwidth × 1e9)',
+    inputs: { active_weights_bytes: activeWeightsBytes, effective_bandwidth_gbs: effBw },
+    substituted: `${num(activeWeightsBytes)} / (${num(effBw)} × 1e9)`,
     result: prefillMemoryS,
     units: 's',
   });
