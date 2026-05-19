@@ -82,28 +82,28 @@
     "name": "Apple A16 Bionic (iPhone 15)",
     "vram_gb": 6.44,
     "memory_bandwidth_gbs": 51.2,
-    "fp16_tflops": 2.0,
+    "fp16_tflops": 3.58,
     "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple A17 Pro (iPhone 15 Pro)",
     "vram_gb": 8.59,
     "memory_bandwidth_gbs": 51.2,
-    "fp16_tflops": 2.15,
+    "fp16_tflops": 4.29,
     "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple A18 (iPhone 16)",
     "vram_gb": 8.59,
     "memory_bandwidth_gbs": 60,
-    "fp16_tflops": 2.5,
+    "fp16_tflops": 5.0,
     "usable_memory_fraction": 0.5
   },
   {
     "name": "Apple A18 Pro (iPhone 16 Pro)",
     "vram_gb": 8.59,
     "memory_bandwidth_gbs": 60,
-    "fp16_tflops": 2.9,
+    "fp16_tflops": 5.8,
     "usable_memory_fraction": 0.5
   },
   {

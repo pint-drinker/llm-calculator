@@ -1,4 +1,5 @@
 import type {
+  AttentionLayer,
   GPU,
   InferenceConfig,
   ThroughputEstimate,
@@ -30,6 +31,46 @@ function effectiveBandwidth(gpu: GPU, tp: number): number {
   return gpu.memory_bandwidth_gbs * tp * eff;
 }
 
+function attentionFlops(layers: AttentionLayer[], newTokens: number, totalContext: number): number {
+  let flops = 0;
+  for (const layer of layers) {
+    if (layer.kind === 'full') {
+      flops += 2 * newTokens * totalContext * layer.n_kv_heads * layer.head_dim;
+    }
+  }
+  return flops;
+}
+
+/**
+ * Compute prefill (TTFT) latency using the roofline model.
+ * Accounts for linear matmul FLOPs, quadratic attention FLOPs for full-attention
+ * layers, and memory-bandwidth floor for weight loading.
+ *
+ * @param promptTokens - Number of new tokens to prefill
+ * @param cachedTokens - Tokens already in KV cache (cross-attention cost only)
+ */
+export function computePrefillTime(
+  config: InferenceConfig,
+  memory: MemoryComputation,
+  gpu: GPU,
+  promptTokens: number,
+  cachedTokens = 0,
+): number {
+  const { model, weight_quant, tensor_parallel } = config;
+  const tp = tensor_parallel;
+  const effFlops = effectiveTflops(gpu, weight_quant, tp);
+  const effBw = effectiveBandwidth(gpu, tp);
+
+  const linearFlops = promptTokens * 2 * (model.active_params ?? model.params);
+  const totalContext = promptTokens + cachedTokens;
+  const attnFlops = attentionFlops(model.layers, promptTokens, totalContext);
+
+  const computeTime = (linearFlops + attnFlops) / (effFlops * 1e12);
+  const memoryTime = memory.raw.weights_bytes / (effBw * 1e9);
+
+  return Math.max(computeTime, memoryTime);
+}
+
 export function computeThroughput(
   config: InferenceConfig,
   memory: MemoryComputation,
@@ -52,7 +93,7 @@ export function computeThroughput(
   const bottleneck: 'memory' | 'compute' =
     memory_bound_tps < compute_bound_tps ? 'memory' : 'compute';
 
-  const ttft_seconds = (context_length * flopsPerToken) / (effFlops * 1e12);
+  const ttft_seconds = computePrefillTime(config, memory, gpu, context_length);
 
   return {
     memory_bound_tps,

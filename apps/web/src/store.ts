@@ -18,6 +18,9 @@ export interface AppState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  initial_prompt_tokens: number;
+  sci_enabled: boolean;
+  sci_context_limit: number;
   ttft_threshold_s: number;
   throughput_threshold_tps: number;
   highlightedValue: string | null;
@@ -28,6 +31,9 @@ export interface AppState {
   setContext: (n: number) => void;
   setBatch: (n: number) => void;
   setTp: (n: TensorParallel) => void;
+  setInitialPrompt: (n: number) => void;
+  setSciEnabled: (b: boolean) => void;
+  setSciContextLimit: (n: number) => void;
   setTtftThreshold: (n: number) => void;
   setThroughputThreshold: (n: number) => void;
   setHighlighted: (k: string | null) => void;
@@ -47,6 +53,9 @@ export const useStore = create<AppState>((set) => ({
   context_length: initial?.context_length ?? 262144,
   batch_size: initial?.batch_size ?? 1,
   tensor_parallel: initial?.tensor_parallel ?? 1,
+  initial_prompt_tokens: 2000,
+  sci_enabled: false,
+  sci_context_limit: 40960,
   ttft_threshold_s: 5,
   throughput_threshold_tps: 15,
   highlightedValue: null,
@@ -57,6 +66,9 @@ export const useStore = create<AppState>((set) => ({
   setContext: (n) => set({ context_length: n }),
   setBatch: (n) => set({ batch_size: n }),
   setTp: (n) => set({ tensor_parallel: n }),
+  setInitialPrompt: (n) => set({ initial_prompt_tokens: n }),
+  setSciEnabled: (b) => set({ sci_enabled: b }),
+  setSciContextLimit: (n) => set({ sci_context_limit: n }),
   setTtftThreshold: (n) => set({ ttft_threshold_s: n }),
   setThroughputThreshold: (n) => set({ throughput_threshold_tps: n }),
   setHighlighted: (k) => set({ highlightedValue: k }),
@@ -67,7 +79,9 @@ export function selectConfig(s: AppState): InferenceConfig {
     model: s.model,
     weight_quant: s.weight_quant,
     kv_quant: s.kv_quant,
-    context_length: s.context_length,
+    context_length: s.sci_enabled
+      ? Math.min(s.context_length, s.sci_context_limit)
+      : s.context_length,
     batch_size: s.batch_size,
     tensor_parallel: s.tensor_parallel,
   };

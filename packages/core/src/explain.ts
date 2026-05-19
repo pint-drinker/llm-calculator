@@ -226,16 +226,57 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 'tokens/s',
   });
 
-  const ttft = (context_length * flopsPerToken) / (effFlops * 1e12);
+  const linearFlops = context_length * flopsPerToken;
+  steps.push({
+    name: 'prefill_linear_flops',
+    formula: 'context × flops_per_token',
+    inputs: { context_length, flops_per_token: flopsPerToken },
+    substituted: `${num(context_length)} × ${num(flopsPerToken)}`,
+    result: linearFlops,
+    units: 'FLOPs',
+  });
+
+  let attnFlops = 0;
+  for (const layer of model.layers) {
+    if (layer.kind === 'full') {
+      attnFlops += 2 * context_length * context_length * layer.n_kv_heads * layer.head_dim;
+    }
+  }
+  steps.push({
+    name: 'prefill_attention_flops',
+    formula: 'Σ_full_layers(2 × context² × n_kv_heads × head_dim)',
+    inputs: { context_length, full_layer_count: fullLayers },
+    substituted: `2 × ${num(context_length)}² × (Σ n_kv_heads×head_dim over ${fullLayers} layers)`,
+    result: attnFlops,
+    units: 'FLOPs',
+  });
+
+  const prefillComputeS = (linearFlops + attnFlops) / (effFlops * 1e12);
+  steps.push({
+    name: 'prefill_compute_time',
+    formula: '(linear_flops + attention_flops) / (effective_tflops × 1e12)',
+    inputs: { linear_flops: linearFlops, attention_flops: attnFlops, effective_tflops: effFlops },
+    substituted: `(${num(linearFlops)} + ${num(attnFlops)}) / (${num(effFlops)} × 1e12)`,
+    result: prefillComputeS,
+    units: 's',
+  });
+
+  const prefillMemoryS = weights_bytes / (effBw * 1e9);
+  steps.push({
+    name: 'prefill_memory_floor',
+    formula: 'weights_bytes / (effective_bandwidth × 1e9)',
+    inputs: { weights_bytes, effective_bandwidth_gbs: effBw },
+    substituted: `${num(weights_bytes)} / (${num(effBw)} × 1e9)`,
+    result: prefillMemoryS,
+    units: 's',
+  });
+
+  const ttft = Math.max(prefillComputeS, prefillMemoryS);
   steps.push({
     name: 'ttft_seconds',
-    formula: 'context × flops_per_token / (effective_tflops × 1e12)',
-    inputs: {
-      context_length,
-      flops_per_token: flopsPerToken,
-      effective_tflops: effFlops,
-    },
-    substituted: `${num(context_length)} × ${num(flopsPerToken)} / (${num(effFlops)} × 1e12)`,
+    formula: 'max(prefill_compute_time, prefill_memory_floor)',
+    inputs: { prefill_compute_time: prefillComputeS, prefill_memory_floor: prefillMemoryS },
+    substituted: `max(${num(prefillComputeS)}, ${num(prefillMemoryS)})`,
     result: ttft,
     units: 's',
   });

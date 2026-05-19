@@ -7,10 +7,12 @@ export function Sidebar() {
   const {
     model,
     gpu,
+    initial_prompt_tokens,
     ttft_threshold_s,
     throughput_threshold_tps,
     setModel,
     setGpu,
+    setInitialPrompt,
     setTtftThreshold,
     setThroughputThreshold,
   } = useStore();
@@ -81,8 +83,19 @@ export function Sidebar() {
             />
           </div>
         </div>
+        <div className="mt-2">
+          <label className="text-[10px] text-ink-400">Initial prompt (tokens)</label>
+          <input
+            type="number"
+            min={100}
+            step={500}
+            value={initial_prompt_tokens}
+            onChange={(e) => setInitialPrompt(Math.max(100, Number(e.target.value) || 2000))}
+            className="w-full rounded border border-ink-700 bg-ink-800 px-2 py-1 text-sm"
+          />
+        </div>
         <p className="mt-1.5 text-[10px] text-ink-500">
-          Values outside these thresholds are flagged in results.
+          TTFT is computed at initial prompt size. Thresholds flag values in results.
         </p>
       </section>
 

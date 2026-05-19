@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { calculate } from '@llm-calc/core';
 import { useStore, selectConfig } from './store.js';
 import { writeUrl } from './url.js';
+import { fmtContext } from './format.js';
 import { Sidebar } from './components/Sidebar.js';
 import { ControlPanel } from './components/ControlPanel.js';
 import { ResultsHeader } from './components/ResultsHeader.js';
 import { MemoryVsContext } from './components/MemoryVsContext.js';
 import { CrossoverChart } from './components/CrossoverChart.js';
+import { TtftVsContext } from './components/TtftVsContext.js';
 import { MathExplainer } from './components/MathExplainer.js';
 
 export function App() {
@@ -59,14 +61,66 @@ export function App() {
             </button>
           </div>
         </header>
+        <SciToggle />
         <ControlPanel />
         <ResultsHeader result={result} />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <MemoryVsContext config={config} gpu={state.gpu} />
           <CrossoverChart config={config} gpu={state.gpu} />
+          <TtftVsContext config={config} gpu={state.gpu} />
         </div>
         <MathExplainer config={config} gpu={state.gpu} />
       </main>
+    </div>
+  );
+}
+
+function SciToggle() {
+  const enabled = useStore((s) => s.sci_enabled);
+  const limit = useStore((s) => s.sci_context_limit);
+  const setEnabled = useStore((s) => s.setSciEnabled);
+  const setLimit = useStore((s) => s.setSciContextLimit);
+
+  return (
+    <div
+      className={
+        'flex items-center gap-3 rounded-lg border px-4 py-2 transition-colors ' +
+        (enabled
+          ? 'border-accent-500/50 bg-accent-600/10'
+          : 'border-ink-700 bg-ink-800/50')
+      }
+    >
+      <button
+        role="switch"
+        aria-checked={enabled}
+        onClick={() => setEnabled(!enabled)}
+        className={
+          'relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors ' +
+          (enabled ? 'bg-accent-500' : 'bg-ink-600')
+        }
+      >
+        <span
+          className={
+            'pointer-events-none inline-block h-4 w-4 translate-y-0.5 rounded-full bg-white shadow transition-transform ' +
+            (enabled ? 'translate-x-[18px]' : 'translate-x-0.5')
+          }
+        />
+      </button>
+      <span className="text-sm font-medium">Subconscious Context Intelligence</span>
+      {enabled && (
+        <div className="ml-auto flex items-center gap-2 text-xs text-ink-300">
+          <span>Effective limit:</span>
+          <input
+            type="number"
+            min={1024}
+            step={1024}
+            value={limit}
+            onChange={(e) => setLimit(Math.max(1024, Number(e.target.value) || 40960))}
+            className="w-20 rounded border border-ink-600 bg-ink-800 px-2 py-0.5 text-sm font-mono"
+          />
+          <span className="text-ink-500">({fmtContext(limit)})</span>
+        </div>
+      )}
     </div>
   );
 }

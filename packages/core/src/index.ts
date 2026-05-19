@@ -2,7 +2,7 @@ export * from './types.js';
 export * from './quantization.js';
 export * as schemas from './schemas.js';
 export { computeMemory, kvBytesPerToken, MEMORY_CONSTANTS } from './memory.js';
-export { computeThroughput, THROUGHPUT_CONSTANTS } from './throughput.js';
+export { computeThroughput, computePrefillTime, THROUGHPUT_CONSTANTS } from './throughput.js';
 export { calculate } from './calculate.js';
 export { findMaxContext, recommendHardware } from './recommend.js';
 export type { MaxContextResult, HardwareCandidate } from './recommend.js';

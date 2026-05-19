@@ -1,5 +1,6 @@
-import type { CalculationResult } from '@llm-calc/core';
-import { useStore } from '../store.js';
+import { useMemo } from 'react';
+import { type CalculationResult, computeMemory, computePrefillTime } from '@llm-calc/core';
+import { useStore, selectConfig } from '../store.js';
 import { fmtGB, fmtSeconds, fmtTok } from '../format.js';
 
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 
 export function ResultsHeader({ result }: Props) {
   const gpu = useStore((s) => s.gpu);
+  const config = useStore(selectConfig);
+  const initialPromptTokens = useStore((s) => s.initial_prompt_tokens);
   const highlighted = useStore((s) => s.highlightedValue);
   const setHighlight = useStore((s) => s.setHighlighted);
   const ttftThreshold = useStore((s) => s.ttft_threshold_s);
@@ -33,7 +36,10 @@ export function ResultsHeader({ result }: Props) {
     overflow: 'text-danger-400',
   }[status];
 
-  const ttft = result.throughput.ttft_seconds;
+  const ttft = useMemo(() => {
+    const mem = computeMemory(config);
+    return computePrefillTime(config, mem, gpu, initialPromptTokens);
+  }, [config, gpu, initialPromptTokens]);
   const tps = result.throughput.estimated_tps;
   const ttftExceeds = Number.isFinite(ttft) && ttft > ttftThreshold;
   const tpsBelow = Number.isFinite(tps) && tps > 0 && tps < tpsThreshold;
@@ -104,7 +110,7 @@ export function ResultsHeader({ result }: Props) {
             {fmtSeconds(ttft)}
           </div>
           <div className="mt-1 text-xs text-ink-400">
-            Prefill latency for full context
+            Prefill at {(initialPromptTokens / 1000).toFixed(1)}K tokens
           </div>
           {ttftExceeds && (
             <div className="mt-2 flex items-center gap-1 text-xs text-danger-400">

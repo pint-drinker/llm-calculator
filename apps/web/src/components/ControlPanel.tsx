@@ -94,9 +94,19 @@ function Label({ icon, text, tooltip }: { icon: string; text: string; tooltip: s
 }
 
 function LogContextSlider({ value, onChange }: { value: number; onChange: (n: number) => void }) {
+  const sciEnabled = useStore((s) => s.sci_enabled);
+  const sciLimit = useStore((s) => s.sci_context_limit);
   const min = Math.log2(1024);
   const max = Math.log2(1_048_576);
   const cur = Math.log2(Math.max(1024, value));
+
+  const showMarker = sciEnabled && sciLimit < value;
+  const markerPct = showMarker
+    ? ((Math.log2(sciLimit) - min) / (max - min)) * 100
+    : 0;
+
+  const effectiveContext = sciEnabled ? Math.min(value, sciLimit) : value;
+
   return (
     <div className="col-span-1 lg:col-span-2">
       <div className="mb-1 flex items-center justify-between">
@@ -105,20 +115,34 @@ function LogContextSlider({ value, onChange }: { value: number; onChange: (n: nu
           text="Context length"
           tooltip="Total number of tokens (input + output) the model can process at once. Longer contexts require more KV cache memory."
         />
-        <span className="font-mono text-sm">{fmtContext(value)}</span>
+        <span className="font-mono text-sm">
+          {fmtContext(value)}
+          {showMarker && (
+            <span className="ml-1 text-accent-400">(effective: {fmtContext(effectiveContext)})</span>
+          )}
+        </span>
       </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={0.05}
-        value={cur}
-        onChange={(e) => {
-          const n = Math.round(Math.pow(2, Number(e.target.value)));
-          onChange(n);
-        }}
-        className="w-full accent-accent-500"
-      />
+      <div className="relative">
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={0.05}
+          value={cur}
+          onChange={(e) => {
+            const n = Math.round(Math.pow(2, Number(e.target.value)));
+            onChange(n);
+          }}
+          className="w-full accent-accent-500"
+        />
+        {showMarker && (
+          <div
+            className="absolute top-0 bottom-0 w-0.5 bg-accent-400 pointer-events-none"
+            style={{ left: `${markerPct}%` }}
+            title={`SCI effective limit: ${fmtContext(sciLimit)}`}
+          />
+        )}
+      </div>
       <div className="mt-1 flex justify-between text-[10px] text-ink-500">
         <span>1K</span>
         <span>8K</span>
