@@ -1,6 +1,6 @@
-import { Router as createRouter, type Request, type Response, type NextFunction, type Router } from 'express';
+import { Router as createRouter, type Router } from 'express';
 import { z } from 'zod';
-import { schemas, type ModelConfig } from '@llm-calc/core';
+import { schemas } from '@llm-calc/core';
 import {
   HttpError,
   doCalculate,
@@ -8,17 +8,10 @@ import {
   doMaxContext,
   doRecommend,
   doCompare,
-  doImportHF,
   doListModels,
   doListGpus,
 } from './handlers.js';
-import { listModels, findModel, registerModel, findGpu } from './registry.js';
-import { builtInGpus } from '@llm-calc/core';
-
-function asyncHandler(fn: (req: Request, res: Response, next: NextFunction) => Promise<void>) {
-  return (req: Request, res: Response, next: NextFunction) =>
-    Promise.resolve(fn(req, res, next)).catch(next);
-}
+import { findModel, registerModel, findGpu } from './registry.js';
 
 function parseOr400<S extends z.ZodTypeAny>(schema: S, data: unknown): z.output<S> {
   const r = schema.safeParse(data);
@@ -54,15 +47,6 @@ router.post('/models', (req, res) => {
   registerModel(model);
   res.status(201).json(model);
 });
-
-router.post(
-  '/models/import-hf',
-  asyncHandler(async (req, res) => {
-    const args = parseOr400(schemas.importHfRequestSchema, req.body);
-    const result = await doImportHF(args);
-    res.json(result);
-  }),
-);
 
 router.get('/gpus', (_req, res) => {
   res.json(doListGpus());

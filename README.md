@@ -32,6 +32,8 @@ The core engine validates against published model spec sheets — see `packages/
 
 ## MCP integration
 
+### Local (stdio)
+
 For Claude Desktop / Claude Code, after `pnpm build`:
 
 ```json
@@ -45,10 +47,40 @@ For Claude Desktop / Claude Code, after `pnpm build`:
 }
 ```
 
-For HTTP-based agents:
+### Local (HTTP)
 
 ```
 POST http://localhost:3001/mcp
+```
+
+### Cloud
+
+The MCP server is deployed on Cloudflare Workers and available at:
+
+```
+POST https://llm-calc-dev-llmcalcscript.subconscious-core.workers.dev/mcp
+```
+
+For Claude Desktop / Claude Code (remote MCP):
+
+```json
+{
+  "mcpServers": {
+    "llm-calc": {
+      "url": "https://llm-calc-dev-llmcalcscript.subconscious-core.workers.dev/mcp"
+    }
+  }
+}
+```
+
+## Deployment
+
+Deploys to Cloudflare Workers via [SST](https://sst.dev). Requires a `.env` file with your Cloudflare credentials (see `.env.example`).
+
+```bash
+pnpm deploy:dev       # deploy to dev stage
+pnpm deploy:prod      # deploy to production stage
+pnpm remove:dev       # tear down dev
 ```
 
 ## Goals
@@ -57,7 +89,6 @@ POST http://localhost:3001/mcp
 - **Hybrid attention** — correct numbers for models with mixed full + linear attention layers, not just dense GQA.
 - **Independent quantization** — FP8 KV on int4 weights, etc.
 - **MoE-aware** — active params drive compute, total params drive memory.
-- **HuggingFace import** — paste a model ID, get a ready-to-use `ModelConfig` from `config.json` + safetensors metadata.
 
 ## Non-goals
 

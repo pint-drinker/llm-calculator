@@ -7,8 +7,7 @@ import {
   type GPU,
   type ModelConfig,
 } from '@llm-calc/core';
-import { importFromHF, GatedModelError } from '@llm-calc/core/hf';
-import { findModel, registerModel, listModels, findGpu } from './registry.js';
+import { findModel, listModels, findGpu } from './registry.js';
 
 export interface ResolveModelInput {
   model_name?: string;
@@ -128,22 +127,6 @@ export function doRecommend(args: RecommendArgs) {
 
 export function doCompare(configs: CalcArgs[]) {
   return configs.map((c) => ({ input: c, result: doCalculate(c) }));
-}
-
-export async function doImportHF(args: { model_id: string; token?: string; force_refresh?: boolean }) {
-  try {
-    const result = await importFromHF(args.model_id, {
-      token: args.token,
-      force_refresh: args.force_refresh,
-    });
-    registerModel(result.model);
-    return result;
-  } catch (err: unknown) {
-    if (err instanceof GatedModelError) {
-      throw new HttpError(401, 'gated_model', { model_id: err.modelId });
-    }
-    throw err;
-  }
 }
 
 export function doListModels(filter?: {

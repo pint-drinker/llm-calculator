@@ -10,10 +10,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./hf": {
-      "types": "./dist/hf-node.d.ts",
-      "import": "./dist/hf-node.js"
-    },
     "./data/models.json": "./data/models.json",
     "./data/gpus.json": "./data/gpus.json"
   },

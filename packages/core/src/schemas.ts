@@ -106,12 +106,6 @@ export const compareRequestSchema = z.object({
 
 export const explainRequestSchema = calculateByNameRequestSchema;
 
-export const importHfRequestSchema = z.object({
-  model_id: z.string().min(1),
-  token: z.string().optional(),
-  force_refresh: z.boolean().optional(),
-});
-
 export const listModelsFilterSchema = z
   .object({
     min_params: z.number().nonnegative().optional(),

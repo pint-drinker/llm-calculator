@@ -6,9 +6,18 @@
     "dev": "pnpm -r --parallel --filter=\"./packages/api\" --filter=\"./apps/web\" run dev",
     "dev:api": "pnpm --filter @llm-calc/api run dev",
     "dev:web": "pnpm --filter @llm-calc/web run dev",
+    "dev:worker": "pnpm --filter @llm-calc/web build && pnpm --filter @llm-calc/api run worker:dev",
     "mcp:stdio": "pnpm --filter @llm-calc/api run mcp:stdio",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
-    "typecheck": "pnpm -r run typecheck"
+    "typecheck": "pnpm -r run typecheck",
+    "stop:worker": "pkill -f 'wrangler dev' 2>/dev/null; pkill -f workerd 2>/dev/null; exit 0",
+    "deploy:dev": "source .env && pnpm build && sst deploy --stage dev",
+    "deploy:prod": "source .env && pnpm build && sst deploy --stage production",
+    "remove:dev": "source .env && sst remove --stage dev",
+    "remove:prod": "source .env && sst remove --stage production"
+  },
+  "devDependencies": {
+    "sst": "^4.14.1"
   }
 }

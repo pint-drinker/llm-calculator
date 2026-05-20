@@ -7,7 +7,6 @@ import {
   doMaxContext,
   doRecommend,
   doCompare,
-  doImportHF,
   doListModels,
   doListGpus,
 } from '../handlers.js';
@@ -126,21 +125,6 @@ export function createMcpServer(): McpServer {
   );
 
   server.registerTool(
-    'import_model_from_hf',
-    {
-      title: 'Import a model from HuggingFace Hub',
-      description:
-        "Fetch a model's architecture from HuggingFace Hub by ID (e.g. 'meta-llama/Llama-3.1-70B') and return a ModelConfig ready for use in other tools. Use when the user names a model not in the catalog, or wants to check a brand-new release. Warnings include cases where the architecture wasn't recognized and a fallback was used.",
-      inputSchema: {
-        model_id: z.string().min(1),
-        token: z.string().optional(),
-        force_refresh: z.boolean().optional(),
-      },
-    },
-    async (args) => jsonResult(await doImportHF(args)),
-  );
-
-  server.registerTool(
     'explain_calculation',
     {
       title: 'Trace a calculation step-by-step',
@@ -161,6 +145,5 @@ export const MCP_TOOL_NAMES = [
   'compare_configurations',
   'list_models',
   'list_gpus',
-  'import_model_from_hf',
   'explain_calculation',
 ] as const;
