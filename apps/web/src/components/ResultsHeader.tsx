@@ -15,10 +15,10 @@ export function ResultsHeader({ result }: Props) {
   const setHighlight = useStore((s) => s.setHighlighted);
   const ttftThreshold = useStore((s) => s.ttft_threshold_s);
   const tpsThreshold = useStore((s) => s.throughput_threshold_tps);
+  const usableFraction = useStore((s) => s.usable_memory_fraction);
   const { fits, fits_usable, usable_vram_gb } = result;
   const headroomGb = gpu.vram_gb - result.memory.per_gpu_gb;
   const usableHeadroomGb = usable_vram_gb - result.memory.per_gpu_gb;
-  const usableFraction = gpu.usable_memory_fraction ?? 1.0;
 
   const status: 'fits' | 'tight' | 'overflow' = !fits
     ? 'overflow'

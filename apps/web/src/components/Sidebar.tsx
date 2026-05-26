@@ -2,16 +2,19 @@ import { builtInGpus, builtInModels } from '@llm-calc/core';
 import type { GPU, ModelConfig } from '@llm-calc/core';
 import { useStore } from '../store.js';
 import { Presets } from './Presets.js';
+import { fmtGB } from '../format.js';
 
 export function Sidebar() {
   const {
     model,
     gpu,
+    usable_memory_fraction,
     initial_prompt_tokens,
     ttft_threshold_s,
     throughput_threshold_tps,
     setModel,
     setGpu,
+    setUsableMemoryFraction,
     setInitialPrompt,
     setTtftThreshold,
     setThroughputThreshold,
@@ -55,6 +58,40 @@ export function Sidebar() {
           ))}
         </select>
         <GpuSummary gpu={gpu} />
+      </section>
+
+      <section>
+        <h2 className="label mb-1">Headroom</h2>
+        <div>
+          <label className="text-[10px] text-ink-400">Usable VRAM cap (%)</label>
+          <div className="mt-1 flex items-center gap-2">
+            <input
+              type="range"
+              min={10}
+              max={95}
+              step={5}
+              value={Math.round(usable_memory_fraction * 100)}
+              onChange={(e) => setUsableMemoryFraction(Number(e.target.value) / 100)}
+              className="flex-1"
+            />
+            <input
+              type="number"
+              min={10}
+              max={95}
+              step={5}
+              value={Math.round(usable_memory_fraction * 100)}
+              onChange={(e) =>
+                setUsableMemoryFraction((Number(e.target.value) || 50) / 100)
+              }
+              className="w-14 rounded border border-ink-700 bg-ink-800 px-2 py-1 text-sm font-mono"
+            />
+          </div>
+        </div>
+        <p className="mt-1.5 text-[10px] text-ink-500">
+          {fmtGB(gpu.vram_gb * usable_memory_fraction)} usable on {gpu.name} (
+          {(usable_memory_fraction * 100).toFixed(0)}% of {fmtGB(gpu.vram_gb)}). Fit is marked
+          &quot;Tight&quot; above this cap.
+        </p>
       </section>
 
       <section>

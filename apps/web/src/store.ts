@@ -23,6 +23,7 @@ export interface AppState {
   sci_context_limit: number;
   ttft_threshold_s: number;
   throughput_threshold_tps: number;
+  usable_memory_fraction: number;
   highlightedValue: string | null;
   setModel: (m: ModelConfig) => void;
   setGpu: (g: GPU) => void;
@@ -36,7 +37,12 @@ export interface AppState {
   setSciContextLimit: (n: number) => void;
   setTtftThreshold: (n: number) => void;
   setThroughputThreshold: (n: number) => void;
+  setUsableMemoryFraction: (n: number) => void;
   setHighlighted: (k: string | null) => void;
+}
+
+function clampUsableMemoryFraction(n: number): number {
+  return Math.min(0.95, Math.max(0.1, n));
 }
 
 const defaultModel =
@@ -58,6 +64,7 @@ export const useStore = create<AppState>((set) => ({
   sci_context_limit: 40960,
   ttft_threshold_s: 5,
   throughput_threshold_tps: 15,
+  usable_memory_fraction: 0.5,
   highlightedValue: null,
   setModel: (m) => set({ model: m }),
   setGpu: (g) => set({ gpu: g }),
@@ -71,8 +78,14 @@ export const useStore = create<AppState>((set) => ({
   setSciContextLimit: (n) => set({ sci_context_limit: n }),
   setTtftThreshold: (n) => set({ ttft_threshold_s: n }),
   setThroughputThreshold: (n) => set({ throughput_threshold_tps: n }),
+  setUsableMemoryFraction: (n) =>
+    set({ usable_memory_fraction: clampUsableMemoryFraction(n) }),
   setHighlighted: (k) => set({ highlightedValue: k }),
 }));
+
+export function selectEffectiveGpu(s: AppState): GPU {
+  return { ...s.gpu, usable_memory_fraction: s.usable_memory_fraction };
+}
 
 export function selectConfig(s: AppState): InferenceConfig {
   return {

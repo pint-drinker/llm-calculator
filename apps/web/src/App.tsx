@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { calculate } from '@llm-calc/core';
-import { useStore, selectConfig } from './store.js';
+import { useStore, selectConfig, selectEffectiveGpu } from './store.js';
 import { writeUrl } from './url.js';
 import { fmtContext } from './format.js';
 import { Sidebar } from './components/Sidebar.js';
@@ -14,7 +14,8 @@ import { MathExplainer } from './components/MathExplainer.js';
 export function App() {
   const state = useStore();
   const config = useMemo(() => selectConfig(state), [state]);
-  const result = useMemo(() => calculate(config, state.gpu), [config, state.gpu]);
+  const gpu = useMemo(() => selectEffectiveGpu(state), [state.gpu, state.usable_memory_fraction]);
+  const result = useMemo(() => calculate(config, gpu), [config, gpu]);
   const [shareToast, setShareToast] = useState<string | null>(null);
 
   useEffect(() => {
@@ -65,11 +66,11 @@ export function App() {
         <ControlPanel />
         <ResultsHeader result={result} />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <MemoryVsContext config={config} gpu={state.gpu} />
-          <CrossoverChart config={config} gpu={state.gpu} />
-          <TtftVsContext config={config} gpu={state.gpu} />
+          <MemoryVsContext config={config} gpu={gpu} />
+          <CrossoverChart config={config} gpu={gpu} />
+          <TtftVsContext config={config} gpu={gpu} />
         </div>
-        <MathExplainer config={config} gpu={state.gpu} />
+        <MathExplainer config={config} gpu={gpu} />
       </main>
     </div>
   );
