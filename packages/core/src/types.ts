@@ -29,6 +29,8 @@ export type KVQuant = 'bf16' | 'fp8' | 'int4';
 
 export type TensorParallel = 1 | 2 | 4 | 8;
 
+export type InferenceEngine = 'sglang' | 'llama_cpp';
+
 export interface InferenceConfig {
   model: ModelConfig;
   weight_quant: WeightQuant;
@@ -36,6 +38,8 @@ export interface InferenceConfig {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  /** Inference engine the estimate is calibrated for. Defaults to 'sglang'. */
+  engine?: InferenceEngine;
 }
 
 export interface GPU {

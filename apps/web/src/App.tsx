@@ -27,6 +27,7 @@ export function App() {
       context_length: state.context_length,
       batch_size: state.batch_size,
       tensor_parallel: state.tensor_parallel,
+      inference_engine: state.inference_engine,
     });
   }, [state]);
 
@@ -51,12 +52,13 @@ export function App() {
               Hybrid-aware. Independent weight/KV quantization. Tensor parallelism. MoE.
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {shareToast && (
               <span className="rounded bg-accent-600 px-2 py-1 text-xs text-ink-950">
                 {shareToast}
               </span>
             )}
+            <EngineToggle />
             <button className="btn" onClick={onShare}>
               Share link
             </button>
@@ -72,6 +74,28 @@ export function App() {
         </div>
         <MathExplainer config={config} gpu={gpu} />
       </main>
+    </div>
+  );
+}
+
+function EngineToggle() {
+  const engine = useStore((s) => s.inference_engine);
+  const setEngine = useStore((s) => s.setInferenceEngine);
+
+  return (
+    <div
+      className="flex items-center gap-2"
+      title="Throughput & TTFT estimates are calibrated per engine. llama.cpp runs well below the hardware roofline (GGUF dequant overhead, weak MoE expert kernels); sglang-style serving gets close to it."
+    >
+      <span className="label">Engine</span>
+      <div className="segmented">
+        <button data-active={engine === 'sglang'} onClick={() => setEngine('sglang')}>
+          sglang
+        </button>
+        <button data-active={engine === 'llama_cpp'} onClick={() => setEngine('llama_cpp')}>
+          llama.cpp
+        </button>
+      </div>
     </div>
   );
 }

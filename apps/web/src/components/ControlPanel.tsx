@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { WEIGHT_QUANTS, KV_QUANTS } from '@llm-calc/core';
+import { ENGINE_WEIGHT_QUANTS, KV_QUANTS } from '@llm-calc/core';
 import type { KVQuant, TensorParallel, WeightQuant } from '@llm-calc/core';
 import { useStore } from '../store.js';
 import { fmtContext } from '../format.js';
@@ -13,6 +13,7 @@ export function ControlPanel() {
     context_length,
     batch_size,
     tensor_parallel,
+    inference_engine,
     setWeightQuant,
     setKvQuant,
     setContext,
@@ -41,9 +42,9 @@ export function ControlPanel() {
       <Segmented
         label="Weight quant"
         icon="⚖️"
-        tooltip="Precision used to store model weights. Lower precision reduces VRAM usage but may affect output quality. GGUF quants (q8_0, q5_k_m, etc.) are for llama.cpp-style inference."
+        tooltip="Precision used to store model weights. Lower precision reduces VRAM usage but may affect output quality. Options follow the selected engine: GGUF quants (q8_0, q4_k_m, etc.) for llama.cpp, HF-style formats for sglang."
         value={weight_quant}
-        options={WEIGHT_QUANTS as WeightQuant[]}
+        options={ENGINE_WEIGHT_QUANTS[inference_engine] as WeightQuant[]}
         onChange={setWeightQuant}
       />
       <Segmented

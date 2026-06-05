@@ -1,12 +1,13 @@
 import LZString from 'lz-string';
 import type {
   GPU,
+  InferenceEngine,
   KVQuant,
   ModelConfig,
   TensorParallel,
   WeightQuant,
 } from '@llm-calc/core';
-import { builtInGpus, builtInModels } from '@llm-calc/core';
+import { ENGINE_WEIGHT_QUANTS, builtInGpus, builtInModels } from '@llm-calc/core';
 
 export interface UrlState {
   model: ModelConfig;
@@ -16,6 +17,7 @@ export interface UrlState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  inference_engine: InferenceEngine;
 }
 
 interface Encoded {
@@ -26,6 +28,7 @@ interface Encoded {
   c?: number;
   b?: number;
   tp?: TensorParallel;
+  e?: InferenceEngine;
 }
 
 export function encodeState(state: UrlState): string {
@@ -37,6 +40,7 @@ export function encodeState(state: UrlState): string {
     c: state.context_length,
     b: state.batch_size,
     tp: state.tensor_parallel,
+    e: state.inference_engine,
   };
   return LZString.compressToEncodedURIComponent(JSON.stringify(e));
 }
@@ -51,14 +55,20 @@ export function decodeStateFromUrl(): UrlState | null {
     const e = JSON.parse(raw) as Encoded;
     const model = builtInModels.find((m) => m.name === e.m) ?? builtInModels[0];
     const gpu = builtInGpus.find((g) => g.name === e.g) ?? builtInGpus[0];
+    const weight_quant = e.wq ?? 'bf16';
+    // Older links carry no engine; infer llama.cpp from GGUF-only quants.
+    const inferred: InferenceEngine = ENGINE_WEIGHT_QUANTS.sglang.includes(weight_quant)
+      ? 'sglang'
+      : 'llama_cpp';
     return {
       model,
       gpu,
-      weight_quant: e.wq ?? 'bf16',
+      weight_quant,
       kv_quant: e.kq ?? 'bf16',
       context_length: e.c ?? 8192,
       batch_size: e.b ?? 1,
       tensor_parallel: e.tp ?? 1,
+      inference_engine: e.e ?? inferred,
     };
   } catch {
     return null;

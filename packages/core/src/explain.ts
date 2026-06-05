@@ -6,7 +6,12 @@ import type {
 } from './types.js';
 import { bytesPerParam, kvBytesPerElement } from './quantization.js';
 import { MEMORY_CONSTANTS, computeMemory } from './memory.js';
-import { THROUGHPUT_CONSTANTS, effectiveBandwidth, effectiveTflops } from './throughput.js';
+import {
+  THROUGHPUT_CONSTANTS,
+  effectiveBandwidth,
+  effectiveTflops,
+  engineEfficiency,
+} from './throughput.js';
 
 const GB = MEMORY_CONSTANTS.GB;
 
@@ -17,8 +22,9 @@ function num(n: number, digits = 6): string {
 }
 
 export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
-  const { model, weight_quant, kv_quant, context_length, batch_size, tensor_parallel } = config;
+  const { model, weight_quant, kv_quant, context_length, batch_size, tensor_parallel, engine } = config;
   const tp = tensor_parallel;
+  const engineEff = engineEfficiency(engine, weight_quant, model);
   const steps: ExplainStep[] = [];
 
   const bpp = bytesPerParam(weight_quant);
@@ -171,12 +177,33 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 'GB/s',
   });
 
-  const memTps = (effBw * 1e9) / bytesPerToken;
+  const isMoE = (model.active_params ?? model.params) < model.params;
+  steps.push({
+    name: 'engine_decode_efficiency',
+    formula: 'engine == llama.cpp ? quant_efficiency × (MoE ? 0.52 : 1) : 1',
+    inputs: {
+      engine: engine ?? 'sglang',
+      weight_quant,
+      moe: isMoE ? 'yes' : 'no',
+    },
+    substituted:
+      engine === 'llama_cpp'
+        ? `${num(THROUGHPUT_CONSTANTS.LLAMACPP_QUANT_EFFICIENCY[weight_quant])} × ${isMoE ? THROUGHPUT_CONSTANTS.LLAMACPP_MOE_EFFICIENCY : 1}`
+        : '1 (sglang baseline)',
+    result: engineEff.decode,
+    units: '×',
+  });
+
+  const memTps = (effBw * engineEff.decode * 1e9) / bytesPerToken;
   steps.push({
     name: 'memory_bound_tps',
-    formula: 'effective_bandwidth × 1e9 / bytes_per_decode_token',
-    inputs: { effective_bandwidth_gbs: effBw, bytes_per_decode_token: bytesPerToken },
-    substituted: `${num(effBw)} × 1e9 / ${num(bytesPerToken)}`,
+    formula: 'effective_bandwidth × engine_efficiency × 1e9 / bytes_per_decode_token',
+    inputs: {
+      effective_bandwidth_gbs: effBw,
+      engine_decode_efficiency: engineEff.decode,
+      bytes_per_decode_token: bytesPerToken,
+    },
+    substituted: `${num(effBw)} × ${num(engineEff.decode)} × 1e9 / ${num(bytesPerToken)}`,
     result: memTps,
     units: 'tokens/s',
   });
@@ -209,12 +236,16 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 'TFLOPs/s',
   });
 
-  const compTps = (effFlops * 1e12) / flopsPerToken;
+  const compTps = (effFlops * engineEff.decode * 1e12) / flopsPerToken;
   steps.push({
     name: 'compute_bound_tps',
-    formula: 'effective_tflops × 1e12 / flops_per_token',
-    inputs: { effective_tflops: effFlops, flops_per_token: flopsPerToken },
-    substituted: `${num(effFlops)} × 1e12 / ${num(flopsPerToken)}`,
+    formula: 'effective_tflops × engine_efficiency × 1e12 / flops_per_token',
+    inputs: {
+      effective_tflops: effFlops,
+      engine_decode_efficiency: engineEff.decode,
+      flops_per_token: flopsPerToken,
+    },
+    substituted: `${num(effFlops)} × ${num(engineEff.decode)} × 1e12 / ${num(flopsPerToken)}`,
     result: compTps,
     units: 'tokens/s',
   });
@@ -253,22 +284,31 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 'FLOPs',
   });
 
-  const prefillComputeS = (linearFlops + attnFlops) / (effFlops * 1e12);
+  const prefillComputeS = (linearFlops + attnFlops) / (effFlops * engineEff.prefill * 1e12);
   steps.push({
     name: 'prefill_compute_time',
-    formula: '(linear_flops + attention_flops) / (effective_tflops × 1e12)',
-    inputs: { linear_flops: linearFlops, attention_flops: attnFlops, effective_tflops: effFlops },
-    substituted: `(${num(linearFlops)} + ${num(attnFlops)}) / (${num(effFlops)} × 1e12)`,
+    formula: '(linear_flops + attention_flops) / (effective_tflops × engine_prefill_efficiency × 1e12)',
+    inputs: {
+      linear_flops: linearFlops,
+      attention_flops: attnFlops,
+      effective_tflops: effFlops,
+      engine_prefill_efficiency: engineEff.prefill,
+    },
+    substituted: `(${num(linearFlops)} + ${num(attnFlops)}) / (${num(effFlops)} × ${num(engineEff.prefill)} × 1e12)`,
     result: prefillComputeS,
     units: 's',
   });
 
-  const prefillMemoryS = activeWeightsBytes / (effBw * 1e9);
+  const prefillMemoryS = activeWeightsBytes / (effBw * engineEff.prefill * 1e9);
   steps.push({
     name: 'prefill_memory_floor',
-    formula: 'active_weights_bytes / (effective_bandwidth × 1e9)',
-    inputs: { active_weights_bytes: activeWeightsBytes, effective_bandwidth_gbs: effBw },
-    substituted: `${num(activeWeightsBytes)} / (${num(effBw)} × 1e9)`,
+    formula: 'active_weights_bytes / (effective_bandwidth × engine_prefill_efficiency × 1e9)',
+    inputs: {
+      active_weights_bytes: activeWeightsBytes,
+      effective_bandwidth_gbs: effBw,
+      engine_prefill_efficiency: engineEff.prefill,
+    },
+    substituted: `${num(activeWeightsBytes)} / (${num(effBw)} × ${num(engineEff.prefill)} × 1e9)`,
     result: prefillMemoryS,
     units: 's',
   });

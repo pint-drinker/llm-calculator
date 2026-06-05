@@ -2,12 +2,13 @@ import { create } from 'zustand';
 import type {
   GPU,
   InferenceConfig,
+  InferenceEngine,
   KVQuant,
   ModelConfig,
   TensorParallel,
   WeightQuant,
 } from '@llm-calc/core';
-import { builtInGpus, builtInModels } from '@llm-calc/core';
+import { builtInGpus, builtInModels, mapQuantToEngine } from '@llm-calc/core';
 import { decodeStateFromUrl } from './url.js';
 
 export interface AppState {
@@ -18,6 +19,7 @@ export interface AppState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  inference_engine: InferenceEngine;
   initial_prompt_tokens: number;
   sci_enabled: boolean;
   sci_context_limit: number;
@@ -32,6 +34,7 @@ export interface AppState {
   setContext: (n: number) => void;
   setBatch: (n: number) => void;
   setTp: (n: TensorParallel) => void;
+  setInferenceEngine: (e: InferenceEngine) => void;
   setInitialPrompt: (n: number) => void;
   setSciEnabled: (b: boolean) => void;
   setSciContextLimit: (n: number) => void;
@@ -59,6 +62,7 @@ export const useStore = create<AppState>((set) => ({
   context_length: initial?.context_length ?? 262144,
   batch_size: initial?.batch_size ?? 1,
   tensor_parallel: initial?.tensor_parallel ?? 1,
+  inference_engine: initial?.inference_engine ?? 'sglang',
   initial_prompt_tokens: 2000,
   sci_enabled: false,
   sci_context_limit: 40960,
@@ -73,6 +77,11 @@ export const useStore = create<AppState>((set) => ({
   setContext: (n) => set({ context_length: n }),
   setBatch: (n) => set({ batch_size: n }),
   setTp: (n) => set({ tensor_parallel: n }),
+  setInferenceEngine: (e) =>
+    set((s) => ({
+      inference_engine: e,
+      weight_quant: mapQuantToEngine(s.weight_quant, e),
+    })),
   setInitialPrompt: (n) => set({ initial_prompt_tokens: n }),
   setSciEnabled: (b) => set({ sci_enabled: b }),
   setSciContextLimit: (n) => set({ sci_context_limit: n }),
@@ -97,5 +106,6 @@ export function selectConfig(s: AppState): InferenceConfig {
       : s.context_length,
     batch_size: s.batch_size,
     tensor_parallel: s.tensor_parallel,
+    engine: s.inference_engine,
   };
 }
