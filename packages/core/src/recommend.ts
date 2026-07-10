@@ -23,6 +23,7 @@ export function findMaxContext(args: {
   gpu: GPU;
   tensor_parallel: TensorParallel;
   batch_size?: number;
+  include_mmproj?: boolean;
   target_utilization?: number;
 }): MaxContextResult {
   const {
@@ -32,6 +33,7 @@ export function findMaxContext(args: {
     gpu,
     tensor_parallel,
     batch_size = 1,
+    include_mmproj = false,
     target_utilization = 0.9,
   } = args;
 
@@ -39,7 +41,15 @@ export function findMaxContext(args: {
 
   const probe = (context_length: number): CalculationResult =>
     calculate(
-      { model, weight_quant, kv_quant, context_length, batch_size, tensor_parallel },
+      {
+        model,
+        weight_quant,
+        kv_quant,
+        context_length,
+        batch_size,
+        tensor_parallel,
+        include_mmproj,
+      },
       gpu,
     );
 
@@ -103,9 +113,18 @@ export function recommendHardware(args: {
   kv_quant: KVQuant;
   context_length: number;
   batch_size?: number;
+  include_mmproj?: boolean;
   gpus: GPU[];
 }): HardwareCandidate[] {
-  const { model, weight_quant, kv_quant, context_length, batch_size = 1, gpus } = args;
+  const {
+    model,
+    weight_quant,
+    kv_quant,
+    context_length,
+    batch_size = 1,
+    include_mmproj = false,
+    gpus,
+  } = args;
   const candidates: HardwareCandidate[] = [];
 
   for (const gpu of gpus) {
@@ -118,6 +137,7 @@ export function recommendHardware(args: {
           context_length,
           batch_size,
           tensor_parallel: tp,
+          include_mmproj,
         },
         gpu,
       );

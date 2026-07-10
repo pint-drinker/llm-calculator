@@ -5,7 +5,9 @@ import {
   recommendHardware,
   builtInGpus,
   type GPU,
+  type KVQuant,
   type ModelConfig,
+  type WeightQuant,
 } from '@llm-calc/core';
 import { findModel, listModels, findGpu } from './registry.js';
 
@@ -39,11 +41,12 @@ export class HttpError extends Error {
 export interface CalcArgs {
   model_name?: string;
   model?: ModelConfig;
-  weight_quant: 'bf16' | 'fp16' | 'fp8' | 'int8' | 'awq_int4' | 'gptq_int4' | 'q8_0' | 'q5_k_m' | 'q4_k_m' | 'q3_k_m';
-  kv_quant: 'bf16' | 'fp8' | 'int4';
+  weight_quant: WeightQuant;
+  kv_quant: KVQuant;
   context_length: number;
   batch_size: number;
   tensor_parallel: 1 | 2 | 4 | 8;
+  include_mmproj?: boolean;
   gpu_name: string;
 }
 
@@ -58,6 +61,7 @@ export function doCalculate(args: CalcArgs) {
       context_length: args.context_length,
       batch_size: args.batch_size,
       tensor_parallel: args.tensor_parallel,
+      include_mmproj: args.include_mmproj,
     },
     gpu,
   );
@@ -74,6 +78,7 @@ export function doExplain(args: CalcArgs) {
       context_length: args.context_length,
       batch_size: args.batch_size,
       tensor_parallel: args.tensor_parallel,
+      include_mmproj: args.include_mmproj,
     },
     gpu,
   );
@@ -87,6 +92,7 @@ export interface MaxContextArgs {
   gpu_name: string;
   tensor_parallel: 1 | 2 | 4 | 8;
   batch_size: number;
+  include_mmproj?: boolean;
   target_utilization: number;
 }
 
@@ -100,6 +106,7 @@ export function doMaxContext(args: MaxContextArgs) {
     gpu,
     tensor_parallel: args.tensor_parallel,
     batch_size: args.batch_size,
+    include_mmproj: args.include_mmproj,
     target_utilization: args.target_utilization,
   });
 }
@@ -111,6 +118,7 @@ export interface RecommendArgs {
   kv_quant: CalcArgs['kv_quant'];
   context_length: number;
   batch_size: number;
+  include_mmproj?: boolean;
 }
 
 export function doRecommend(args: RecommendArgs) {
@@ -121,6 +129,7 @@ export function doRecommend(args: RecommendArgs) {
     kv_quant: args.kv_quant,
     context_length: args.context_length,
     batch_size: args.batch_size,
+    include_mmproj: args.include_mmproj,
     gpus: builtInGpus,
   });
 }

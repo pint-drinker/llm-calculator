@@ -34,6 +34,7 @@ export const weightQuantSchema = z.enum([
   'q5_k_m',
   'q4_k_m',
   'q3_k_m',
+  'q2_k',
 ]);
 
 export const kvQuantSchema = z.enum(['bf16', 'fp8', 'int4']);
@@ -52,6 +53,7 @@ export const inferenceConfigSchema = z.object({
   context_length: z.number().int().positive(),
   batch_size: z.number().int().positive(),
   tensor_parallel: tensorParallelSchema,
+  include_mmproj: z.boolean().default(false),
 });
 
 export const gpuSchema = z.object({
@@ -77,6 +79,7 @@ export const calculateByNameRequestSchema = z.object({
   context_length: z.number().int().positive(),
   batch_size: z.number().int().positive().default(1),
   tensor_parallel: tensorParallelSchema.default(1),
+  include_mmproj: z.boolean().default(false),
   gpu_name: z.string(),
 });
 
@@ -88,6 +91,7 @@ export const maxContextRequestSchema = z.object({
   gpu_name: z.string(),
   tensor_parallel: tensorParallelSchema.default(1),
   batch_size: z.number().int().positive().default(1),
+  include_mmproj: z.boolean().default(false),
   target_utilization: z.number().positive().max(1).default(0.9),
 });
 
@@ -98,6 +102,7 @@ export const recommendRequestSchema = z.object({
   kv_quant: kvQuantSchema,
   context_length: z.number().int().positive(),
   batch_size: z.number().int().positive().default(1),
+  include_mmproj: z.boolean().default(false),
 });
 
 export const compareRequestSchema = z.object({

@@ -17,6 +17,7 @@ export interface UrlState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  include_mmproj: boolean;
   inference_engine: InferenceEngine;
 }
 
@@ -28,6 +29,7 @@ interface Encoded {
   c?: number;
   b?: number;
   tp?: TensorParallel;
+  mm?: boolean;
   e?: InferenceEngine;
 }
 
@@ -40,6 +42,7 @@ export function encodeState(state: UrlState): string {
     c: state.context_length,
     b: state.batch_size,
     tp: state.tensor_parallel,
+    mm: state.include_mmproj,
     e: state.inference_engine,
   };
   return LZString.compressToEncodedURIComponent(JSON.stringify(e));
@@ -68,6 +71,7 @@ export function decodeStateFromUrl(): UrlState | null {
       context_length: e.c ?? 8192,
       batch_size: e.b ?? 1,
       tensor_parallel: e.tp ?? 1,
+      include_mmproj: e.mm ?? false,
       inference_engine: e.e ?? inferred,
     };
   } catch {

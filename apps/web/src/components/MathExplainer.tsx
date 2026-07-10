@@ -10,6 +10,7 @@ interface Props {
 
 const HIGHLIGHT_MAP: Record<string, string> = {
   weights_bytes: 'weights',
+  mmproj_bytes: 'mmproj',
   kv_cache_bytes: 'kv',
   kv_bytes_per_token: 'kv',
   linear_state_bytes: 'linear',

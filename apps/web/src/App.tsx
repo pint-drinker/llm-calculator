@@ -27,6 +27,7 @@ export function App() {
       context_length: state.context_length,
       batch_size: state.batch_size,
       tensor_parallel: state.tensor_parallel,
+      include_mmproj: state.include_mmproj,
       inference_engine: state.inference_engine,
     });
   }, [state]);

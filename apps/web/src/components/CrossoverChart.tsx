@@ -32,13 +32,13 @@ export function CrossoverChart({ config, gpu }: Props) {
       const r = calculate({ ...config, context_length: c }, gpu);
       return {
         context: c,
-        weights: r.memory.weights_gb,
+        modelFiles: r.memory.weights_gb + r.memory.mmproj_gb,
         kv: r.memory.kv_cache_gb,
       };
     });
     let cx: number | null = null;
     for (const p of points) {
-      if (p.kv >= p.weights) {
+      if (p.kv >= p.modelFiles) {
         cx = p.context;
         break;
       }
@@ -48,7 +48,7 @@ export function CrossoverChart({ config, gpu }: Props) {
 
   return (
     <div className="panel">
-      <h3 className="label mb-2">Weights vs KV cache (inversion)</h3>
+      <h3 className="label mb-2">Model files vs KV cache (inversion)</h3>
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data}>
           <CartesianGrid stroke="#243246" strokeDasharray="2 4" />
@@ -67,7 +67,14 @@ export function CrossoverChart({ config, gpu }: Props) {
             labelFormatter={(v) => `context: ${fmtContext(Number(v))}`}
             formatter={(v: number) => fmtGB(v)}
           />
-          <Line type="monotone" dataKey="weights" stroke="#3fc8a8" dot={false} strokeWidth={2} />
+          <Line
+            type="monotone"
+            dataKey="modelFiles"
+            name="model files"
+            stroke="#3fc8a8"
+            dot={false}
+            strokeWidth={2}
+          />
           <Line type="monotone" dataKey="kv" stroke="#38bdf8" dot={false} strokeWidth={2} />
           {crossover && (
             <ReferenceLine
@@ -80,7 +87,7 @@ export function CrossoverChart({ config, gpu }: Props) {
         </LineChart>
       </ResponsiveContainer>
       <p className="mt-1 text-[10px] text-ink-400">
-        Where KV cache overtakes weights — the point at which context length, not parameter count, dominates VRAM.
+        Where KV cache overtakes weights plus mmproj — the point at which context length, not model-file size, dominates VRAM.
       </p>
     </div>
   );

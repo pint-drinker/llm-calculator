@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ENGINE_WEIGHT_QUANTS, KV_QUANTS } from '@llm-calc/core';
+import { ENGINE_WEIGHT_QUANTS, KV_QUANTS, estimateMmprojBytes } from '@llm-calc/core';
 import type { KVQuant, TensorParallel, WeightQuant } from '@llm-calc/core';
 import { useStore } from '../store.js';
-import { fmtContext } from '../format.js';
+import { fmtContext, fmtGB } from '../format.js';
 
 const TPS: TensorParallel[] = [1, 2, 4, 8];
 
@@ -13,16 +13,20 @@ export function ControlPanel() {
     context_length,
     batch_size,
     tensor_parallel,
+    include_mmproj,
     inference_engine,
+    model,
     setWeightQuant,
     setKvQuant,
     setContext,
     setBatch,
     setTp,
+    setIncludeMmproj,
   } = useStore();
+  const mmprojGb = estimateMmprojBytes(model, true) / 1e9;
 
   return (
-    <section className="panel grid grid-cols-1 gap-4 lg:grid-cols-5">
+    <section className="panel grid grid-cols-1 gap-4 lg:grid-cols-6">
       <LogContextSlider value={context_length} onChange={setContext} />
       <div>
         <Label
@@ -55,6 +59,27 @@ export function ControlPanel() {
         options={KV_QUANTS as KVQuant[]}
         onChange={setKvQuant}
       />
+      <div>
+        <Label
+          icon="🧩"
+          text="mmproj"
+          tooltip="Include an estimated multimodal projector file: 15% of model params stored at BF16 precision, independent of weight quantization."
+        />
+        <button
+          role="switch"
+          aria-checked={include_mmproj}
+          onClick={() => setIncludeMmproj(!include_mmproj)}
+          className={
+            'w-full rounded border px-2 py-1.5 text-left text-sm transition-colors ' +
+            (include_mmproj
+              ? 'border-accent-500/60 bg-accent-600/20 text-accent-300'
+              : 'border-ink-700 bg-ink-800 text-ink-300')
+          }
+        >
+          <span className="font-medium">{include_mmproj ? 'Included' : 'Excluded'}</span>
+          <span className="ml-2 font-mono text-xs text-ink-400">{fmtGB(mmprojGb)}</span>
+        </button>
+      </div>
       <Segmented
         label="Tensor parallel"
         icon="⚡"

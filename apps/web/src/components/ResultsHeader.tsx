@@ -148,6 +148,7 @@ function MemoryBar({ result, vram_gb, usable_vram_gb, highlight, setHighlight }:
   const showUsableLine = usable_vram_gb < vram_gb;
   const segments: { label: string; value: number; color: string; key: string }[] = [
     { label: 'Weights', value: m.weights_gb, color: 'bg-accent-500', key: 'weights' },
+    { label: 'mmproj', value: m.mmproj_gb, color: 'bg-orange-500', key: 'mmproj' },
     { label: 'KV cache', value: m.kv_cache_gb, color: 'bg-sky-500', key: 'kv' },
     { label: 'Linear', value: m.linear_state_gb, color: 'bg-purple-500', key: 'linear' },
     { label: 'Activations', value: m.activations_gb, color: 'bg-pink-500', key: 'activations' },

@@ -25,6 +25,7 @@ const calcInput = {
   context_length: z.number().int().positive(),
   batch_size: z.number().int().positive().default(1),
   tensor_parallel: schemas.tensorParallelSchema.default(1),
+  include_mmproj: z.boolean().default(false),
   gpu_name: z.string(),
 };
 
@@ -56,6 +57,7 @@ export function createMcpServer(): McpServer {
         gpu_name: z.string(),
         tensor_parallel: schemas.tensorParallelSchema.default(1),
         batch_size: z.number().int().positive().default(1),
+        include_mmproj: z.boolean().default(false),
         target_utilization: z.number().positive().max(1).default(0.9),
       },
     },
@@ -75,6 +77,7 @@ export function createMcpServer(): McpServer {
         kv_quant: schemas.kvQuantSchema,
         context_length: z.number().int().positive(),
         batch_size: z.number().int().positive().default(1),
+        include_mmproj: z.boolean().default(false),
       },
     },
     async (args) =>

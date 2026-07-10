@@ -5,7 +5,7 @@ import type {
   InferenceConfig,
 } from './types.js';
 import { bytesPerParam, kvBytesPerElement } from './quantization.js';
-import { MEMORY_CONSTANTS, computeMemory } from './memory.js';
+import { MEMORY_CONSTANTS, computeMemory, estimateMmprojBytes } from './memory.js';
 import {
   THROUGHPUT_CONSTANTS,
   effectiveBandwidth,
@@ -35,6 +35,23 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     inputs: { params: model.params, weight_quant, bytes_per_param: bpp },
     substituted: `${num(model.params)} × ${bpp}`,
     result: weights_bytes,
+    units: 'bytes',
+  });
+
+  const mmproj_bytes = estimateMmprojBytes(model, config.include_mmproj);
+  steps.push({
+    name: 'mmproj_bytes',
+    formula: 'include_mmproj ? params × 0.15 × bytes_per_param(bf16) : 0',
+    inputs: {
+      include_mmproj: config.include_mmproj ? 'yes' : 'no',
+      params: model.params,
+      mmproj_param_fraction: MEMORY_CONSTANTS.MMPROJ_PARAM_FRACTION,
+      bytes_per_param: bytesPerParam('bf16'),
+    },
+    substituted: config.include_mmproj
+      ? `${num(model.params)} × ${MEMORY_CONSTANTS.MMPROJ_PARAM_FRACTION} × ${bytesPerParam('bf16')}`
+      : '0',
+    result: mmproj_bytes,
     units: 'bytes',
   });
 
@@ -110,19 +127,21 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
     units: 'bytes',
   });
 
-  const shardable = weights_bytes + kv_cache_bytes + linear_state_bytes + activations_bytes;
+  const shardable =
+    weights_bytes + mmproj_bytes + kv_cache_bytes + linear_state_bytes + activations_bytes;
   const totalBytes = shardable + framework_overhead_bytes;
   steps.push({
     name: 'total_bytes',
-    formula: 'weights + kv + linear + activations + overhead',
+    formula: 'weights + mmproj + kv + linear + activations + overhead',
     inputs: {
       weights_bytes,
+      mmproj_bytes,
       kv_cache_bytes,
       linear_state_bytes,
       activations_bytes,
       framework_overhead_bytes,
     },
-    substituted: `${num(weights_bytes)} + ${num(kv_cache_bytes)} + ${num(linear_state_bytes)} + ${num(activations_bytes)} + ${num(framework_overhead_bytes)}`,
+    substituted: `${num(weights_bytes)} + ${num(mmproj_bytes)} + ${num(kv_cache_bytes)} + ${num(linear_state_bytes)} + ${num(activations_bytes)} + ${num(framework_overhead_bytes)}`,
     result: totalBytes,
     units: 'bytes',
   });
@@ -130,7 +149,7 @@ export function explain(config: InferenceConfig, gpu: GPU): ExplainTrace {
   const perGpuBytes = shardable / tp + framework_overhead_bytes;
   steps.push({
     name: 'per_gpu_bytes',
-    formula: '(weights + kv + linear + activations) / TP + overhead',
+    formula: '(weights + mmproj + kv + linear + activations) / TP + overhead',
     inputs: {
       shardable_bytes: shardable,
       tensor_parallel: tp,

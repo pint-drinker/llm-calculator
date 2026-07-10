@@ -11,6 +11,7 @@ const WEIGHT_BYTES_PER_PARAM: Record<WeightQuant, number> = {
   q5_k_m: 0.6875,
   q4_k_m: 0.5625,
   q3_k_m: 0.4375,
+  q2_k: 0.3125,
 };
 
 const KV_BYTES_PER_ELEMENT: Record<KVQuant, number> = {
@@ -39,7 +40,7 @@ export const KV_QUANTS: KVQuant[] = Object.keys(
 // checkpoints (bf16/fp8/AWQ/GPTQ...), llama.cpp loads GGUF quants.
 export const ENGINE_WEIGHT_QUANTS: Record<InferenceEngine, WeightQuant[]> = {
   sglang: ['bf16', 'fp16', 'fp8', 'int8', 'awq_int4', 'gptq_int4'],
-  llama_cpp: ['fp16', 'q8_0', 'q5_k_m', 'q4_k_m', 'q3_k_m'],
+  llama_cpp: ['fp16', 'q8_0', 'q5_k_m', 'q4_k_m', 'q3_k_m', 'q2_k'],
 };
 
 // Nearest-equivalent quant when switching engines.
@@ -55,6 +56,7 @@ const TO_SGLANG_QUANT: Partial<Record<WeightQuant, WeightQuant>> = {
   q5_k_m: 'awq_int4',
   q4_k_m: 'awq_int4',
   q3_k_m: 'awq_int4',
+  q2_k: 'awq_int4',
 };
 
 /** Map a weight quant to the closest equivalent supported by `engine`. */

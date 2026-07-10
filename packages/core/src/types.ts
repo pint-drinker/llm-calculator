@@ -23,7 +23,8 @@ export type WeightQuant =
   | 'q8_0'
   | 'q5_k_m'
   | 'q4_k_m'
-  | 'q3_k_m';
+  | 'q3_k_m'
+  | 'q2_k';
 
 export type KVQuant = 'bf16' | 'fp8' | 'int4';
 
@@ -38,6 +39,8 @@ export interface InferenceConfig {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  /** Include an estimated BF16 mmproj file at 15% of model params. */
+  include_mmproj?: boolean;
   /** Inference engine the estimate is calibrated for. Defaults to 'sglang'. */
   engine?: InferenceEngine;
 }
@@ -55,6 +58,7 @@ export interface GPU {
 
 export interface MemoryBreakdown {
   weights_gb: number;
+  mmproj_gb: number;
   kv_cache_gb: number;
   linear_state_gb: number;
   activations_gb: number;

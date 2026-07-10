@@ -28,6 +28,7 @@ const LLAMACPP_QUANT_EFFICIENCY: Record<WeightQuant, number> = {
   gptq_int4: 0.67,
   q4_k_m: 0.67, // measured (12 / 17.97)
   q3_k_m: 0.62, // extrapolated
+  q2_k: 0.56, // extrapolated
 };
 // llama.cpp's expert matmuls run as many small kernels per token, so MoE
 // models land well below their active-param roofline (measured 0.35 overall
@@ -69,7 +70,8 @@ function effectiveTflops(gpu: GPU, weight_quant: WeightQuant, tp: number): numbe
     (weight_quant === 'awq_int4' ||
       weight_quant === 'gptq_int4' ||
       weight_quant === 'q4_k_m' ||
-      weight_quant === 'q3_k_m') &&
+      weight_quant === 'q3_k_m' ||
+      weight_quant === 'q2_k') &&
     gpu.int4_tflops
   ) {
     base = gpu.int4_tflops;

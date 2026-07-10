@@ -19,6 +19,7 @@ export interface AppState {
   context_length: number;
   batch_size: number;
   tensor_parallel: TensorParallel;
+  include_mmproj: boolean;
   inference_engine: InferenceEngine;
   initial_prompt_tokens: number;
   sci_enabled: boolean;
@@ -34,6 +35,7 @@ export interface AppState {
   setContext: (n: number) => void;
   setBatch: (n: number) => void;
   setTp: (n: TensorParallel) => void;
+  setIncludeMmproj: (b: boolean) => void;
   setInferenceEngine: (e: InferenceEngine) => void;
   setInitialPrompt: (n: number) => void;
   setSciEnabled: (b: boolean) => void;
@@ -62,6 +64,7 @@ export const useStore = create<AppState>((set) => ({
   context_length: initial?.context_length ?? 262144,
   batch_size: initial?.batch_size ?? 1,
   tensor_parallel: initial?.tensor_parallel ?? 1,
+  include_mmproj: initial?.include_mmproj ?? false,
   inference_engine: initial?.inference_engine ?? 'sglang',
   initial_prompt_tokens: 2000,
   sci_enabled: false,
@@ -77,6 +80,7 @@ export const useStore = create<AppState>((set) => ({
   setContext: (n) => set({ context_length: n }),
   setBatch: (n) => set({ batch_size: n }),
   setTp: (n) => set({ tensor_parallel: n }),
+  setIncludeMmproj: (b) => set({ include_mmproj: b }),
   setInferenceEngine: (e) =>
     set((s) => ({
       inference_engine: e,
@@ -106,6 +110,7 @@ export function selectConfig(s: AppState): InferenceConfig {
       : s.context_length,
     batch_size: s.batch_size,
     tensor_parallel: s.tensor_parallel,
+    include_mmproj: s.include_mmproj,
     engine: s.inference_engine,
   };
 }

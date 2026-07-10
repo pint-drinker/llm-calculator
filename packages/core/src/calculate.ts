@@ -24,6 +24,20 @@ export function calculate(config: InferenceConfig, gpu: GPU): CalculationResult 
   const fits_usable = memory.breakdown.per_gpu_gb <= usable_vram_gb;
   const utilization_pct = (memory.breakdown.per_gpu_gb / gpu.vram_gb) * 100;
 
+  if (config.include_mmproj && memory.breakdown.mmproj_gb > 0) {
+    const perGpuWithoutMmproj =
+      memory.breakdown.per_gpu_gb - memory.breakdown.mmproj_gb / config.tensor_parallel;
+    if (!fits && perGpuWithoutMmproj <= gpu.vram_gb) {
+      warnings.push(
+        `Estimated mmproj adds ${memory.breakdown.mmproj_gb.toFixed(1)} GB BF16 model-file memory and pushes this over physical capacity.`,
+      );
+    } else if (fits && !fits_usable && perGpuWithoutMmproj <= usable_vram_gb) {
+      warnings.push(
+        `Estimated mmproj adds ${memory.breakdown.mmproj_gb.toFixed(1)} GB BF16 model-file memory and pushes this over usable VRAM.`,
+      );
+    }
+  }
+
   if (fits && !fits_usable) {
     warnings.push(
       `Exceeds usable VRAM (~${(usable_fraction * 100).toFixed(0)}% of ${gpu.name}'s ${gpu.vram_gb.toFixed(0)} GB). Physically fits but may degrade or OOM under real OS/driver overhead.`,

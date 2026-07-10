@@ -10,12 +10,15 @@ const GB = 1e9;
 const FRAMEWORK_OVERHEAD_GB = 1;
 const ACTIVATION_CHUNK_TOKENS = 4096;
 const ACTIVATION_BYTES_PER_HIDDEN = 8;
+const MMPROJ_PARAM_FRACTION = 0.15;
+const MMPROJ_QUANT = 'bf16';
 
 export interface MemoryComputation {
   breakdown: MemoryBreakdown;
   warnings: string[];
   raw: {
     weights_bytes: number;
+    mmproj_bytes: number;
     kv_cache_bytes: number;
     linear_state_bytes: number;
     activations_bytes: number;
@@ -28,6 +31,7 @@ export function computeMemory(config: InferenceConfig): MemoryComputation {
   const warnings: string[] = [];
 
   const weights_bytes = model.params * bytesPerParam(weight_quant);
+  const mmproj_bytes = estimateMmprojBytes(model, config.include_mmproj);
 
   const kvBpe = kvBytesPerElement(kv_quant);
   let kvPerTokenBytes = 0;
@@ -54,7 +58,7 @@ export function computeMemory(config: InferenceConfig): MemoryComputation {
 
   const tp = tensor_parallel;
   const shardableBytes =
-    weights_bytes + kv_cache_bytes + linear_state_bytes + activations_bytes;
+    weights_bytes + mmproj_bytes + kv_cache_bytes + linear_state_bytes + activations_bytes;
   const totalBytes = shardableBytes + framework_overhead_bytes;
   const perGpuBytes = shardableBytes / tp + framework_overhead_bytes;
 
@@ -71,6 +75,7 @@ export function computeMemory(config: InferenceConfig): MemoryComputation {
   return {
     breakdown: {
       weights_gb: weights_bytes / GB,
+      mmproj_gb: mmproj_bytes / GB,
       kv_cache_gb: kv_cache_bytes / GB,
       linear_state_gb: linear_state_bytes / GB,
       activations_gb: activations_bytes / GB,
@@ -81,12 +86,22 @@ export function computeMemory(config: InferenceConfig): MemoryComputation {
     warnings,
     raw: {
       weights_bytes,
+      mmproj_bytes,
       kv_cache_bytes,
       linear_state_bytes,
       activations_bytes,
       framework_overhead_bytes,
     },
   };
+}
+
+export function estimateMmprojBytes(
+  model: ModelConfig,
+  includeMmproj = false,
+): number {
+  return includeMmproj
+    ? model.params * MMPROJ_PARAM_FRACTION * bytesPerParam(MMPROJ_QUANT)
+    : 0;
 }
 
 export function kvBytesPerToken(model: ModelConfig, kvBpe: number): number {
@@ -104,4 +119,6 @@ export const MEMORY_CONSTANTS = {
   FRAMEWORK_OVERHEAD_GB,
   ACTIVATION_CHUNK_TOKENS,
   ACTIVATION_BYTES_PER_HIDDEN,
+  MMPROJ_PARAM_FRACTION,
+  MMPROJ_QUANT,
 };

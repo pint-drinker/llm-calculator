@@ -35,6 +35,7 @@ export function MemoryVsContext({ config, gpu }: Props) {
       return {
         context: c,
         weights: r.memory.weights_gb,
+        mmproj: r.memory.mmproj_gb,
         kv: r.memory.kv_cache_gb,
         linear: r.memory.linear_state_gb,
         activations: r.memory.activations_gb,
@@ -66,6 +67,7 @@ export function MemoryVsContext({ config, gpu }: Props) {
             formatter={(v: number) => fmtGB(v)}
           />
           <Area dataKey="weights" stackId="1" stroke="#3fc8a8" fill="#3fc8a8" />
+          <Area dataKey="mmproj" stackId="1" stroke="#f97316" fill="#f97316" />
           <Area dataKey="kv" stackId="1" stroke="#38bdf8" fill="#38bdf8" />
           <Area dataKey="linear" stackId="1" stroke="#a855f7" fill="#a855f7" />
           <Area dataKey="activations" stackId="1" stroke="#ec4899" fill="#ec4899" />
